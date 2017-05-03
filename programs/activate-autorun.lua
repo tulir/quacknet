@@ -6,7 +6,7 @@ if table.getn(args) < 1 then
 end
 
 local filePath = args[1]
-local fileName = table.remove(filePath:split("/"))
+local fileName = table.remove(string.split(filePath, "/"))
 local file = fs.open("/autorun/" .. fileName, "w")
 file.write("shell.run(\"" .. table.concat(args, " ") .. "\")")
 file.close()
