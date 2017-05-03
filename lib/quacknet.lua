@@ -1,6 +1,6 @@
-os.loadAPI("sha1")
-os.loadAPI("random")
-os.loadAPI("quackkeys")
+os.loadAPI("/lib/sha1")
+os.loadAPI("/lib/random")
+os.loadAPI("/lib/quackkeys")
 
 REQUEST_REPLY_TIMEOUT = 5
 
