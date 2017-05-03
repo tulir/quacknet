@@ -74,7 +74,7 @@ function isOnline(player)
 end
 
 function trackAll()
-	local rawdata = libquackgps.getSatelliteOutput()
+	local rawdata = getSatelliteOutput()
 	local data = {}
 	for index, entry in ipairs(rawdata) do
 		for _, playerEntry in ipairs(entry.data) do
@@ -94,7 +94,7 @@ function trackAll()
 end
 
 function track(player)
-	local rawdata = libquackgps.getSatelliteOutput()
+	local rawdata = getSatelliteOutput()
 	local data = {}
 	for index, entry in ipairs(rawdata) do
 		data[index] = {}
