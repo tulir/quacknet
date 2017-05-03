@@ -30,7 +30,7 @@ term.setCursorPos(1, 1)
 term.setTextColor(colors.orange)
 print("Loading libquacknet...")
 os.loadAPI("/lib/quacknet")
-if bridge then
+if _G["bridge"] then
 	print("Loading libquackgps")
 	os.loadAPI("/lib/quackgps")
 end
