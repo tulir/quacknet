@@ -2,7 +2,7 @@ local function install(name, toFile)
 	if not toFile then
 		toFile = name
 	end
-	local response = http.get("https://raw.githubusercontent.com/tulir/quacknet/master/" .. name .. ".lua")
+	local response = http.get("https://raw.githubusercontent.com/tulir/quacknet/master/" .. name .. ".lua?nocache=true")
 	local file = fs.open(toFile, "w")
 	if response and file then
 		file.write(response.readAll())
