@@ -54,7 +54,7 @@ local function calculate(satellites)
 		z = 0
 	end
 
-	return -x + data[1].x, -z + 250, -y + data[1].y
+	return -x + satellites[1].x, -z + 250, -y + satellites[1].y
 end
 
 function getPlayers()
