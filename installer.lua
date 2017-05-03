@@ -34,9 +34,10 @@ install("servers/quackgpsd")
 
 install("programs/qhandshake")
 install("programs/qsend")
+install("programs/activate-autorun")
+install("installer", "programs/update-quacknet")
 
 install("startup")
-install("installer", "update-quacknet")
 
 term.setTextColor(colors.orange)
 print("Installation complete! Rebooting...")
