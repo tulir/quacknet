@@ -102,11 +102,12 @@ function handleServerReceived(sender, message)
 			data = nil
 		}
 	end
+	ok, data = pcall(textutils.unserialize, message)
 	return {
 		success = true,
 		sender = sender,
 		text = message,
-		data = pcall(textutils.unserialize, message),
+		data = data,
 		reply = function(data)
 			if type(data) == "table" then
 				data = textutils.serialize(data)
