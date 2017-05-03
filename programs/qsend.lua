@@ -5,10 +5,10 @@ if table.getn(args) < 2 then
 end
 target = tonumber(table.remove(args, 1))
 local reply = quacknet.request(target, table.concat(args, " "))
-if reply then
+if reply.success then
 	term.setTextColor(colors.green)
 	print(reply.text)
 else
 	term.setTextColor(colors.orange)
-	print("No reply received")
+	print(reply.error)
 end

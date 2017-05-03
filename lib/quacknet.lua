@@ -30,7 +30,10 @@ function request(target, data)
 	end
 	local hostData = quackkeys.get(target)
 	if not hostData then
-		return -1, nil
+		return {
+			success = false,
+			error = target .. " has not been linked."
+		}
 	end
 	rednet.send(target, checksum(data, hostData.sendKey) .. data)
 
@@ -40,15 +43,19 @@ function request(target, data)
 		if event == "rednet_message" then
 			local success
 			sender, reply, success = handleReceived(sender, reply)
-			if success == 1 then
+			if success == true then
 				return {
+					success = true,
 					text = reply,
 					data = pcall(textutils.unserialize, text)
 				}
 			end
 		elseif event == "timer" then
 			if sender == timer then
-				return nil
+				return {
+					success = false,
+					error = "No reply received"
+				}
 			end
 		end
 	end
@@ -68,7 +75,7 @@ end
 function handleServerReceived(sender, message)
 	local success, hostData
 	sender, message, success, hostData = handleReceived(sender, message)
-	if success ~= 1 then
+	if success ~= true then
 		return {
 			success = false,
 			error = success,
@@ -92,25 +99,20 @@ function handleServerReceived(sender, message)
 	}
 end
 
---function receiveOnce(computerID, timeout)
---	local sender, message = rednet.receive(timeout)
---	return handleReceived(sender, message, computerID)
---end
-
 function handleReceived(sender, message, computerID)
 	if not knownHosts[sender] then
-		return sender, message, -1
+		return sender, message, sender .. " has not been linked"
 	end
 	if computerID and computerID >= 0 and computerID ~= sender then
-		return sender, message, -2
+		return sender, message, "Invalid computer id (expected " .. computerID .. " got " .. sender .. ")"
 	end
 
 	local hostData = knownHosts[sender]
 	local hash = message:sub(1, 40)
 	if checksum(message:sub(41), hostData.recvKey) == hash then
-		return sender, message:sub(41), 1, hostData
+		return sender, message:sub(41), true, hostData
 	end
-	return sender, message, -3
+	return sender, message, "Invalid message checksum"
 end
 
 open = rednet.open
