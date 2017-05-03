@@ -26,8 +26,12 @@ local function mapTime()
 	return (os.time() * 1000 + 18000) % 24000 + os.day() * 24000
 end
 
-local function checksum(message, secret)
-	return sha1.hmac(secret .. mapTime(), message)
+local function checksum(message, secret, time)
+	return sha1.hmac(secret .. time, message)
+end
+
+local function compile(message, secret)
+	return checksum(message, secret, mapTime()) .. ";" .. mapTime() .. ";" .. message
 end
 
 local function randomSeed()
@@ -46,7 +50,7 @@ function request(target, data)
 			error = target .. " has not been linked."
 		}
 	end
-	rednet.send(target, checksum(data, hostData.sendKey) .. data)
+	rednet.send(target, compile(data, hostData.sendKey))
 
 	timer = os.startTimer(REQUEST_REPLY_TIMEOUT)
 	while true do
@@ -107,7 +111,7 @@ function handleServerReceived(sender, message)
 				data = textutils.serialize(data)
 			end
 			os.sleep(0.1)
-			rednet.send(sender, checksum(data, hostData.sendKey) .. data)
+			rednet.send(sender, compile(data, hostData.sendKey))
 		end
 	}
 end
@@ -121,8 +125,12 @@ function handleReceived(sender, message, computerID)
 	end
 
 	local hostData = quackkeys.get(sender)
-	local hash = message:sub(1, 40)
-	if checksum(message:sub(41), hostData.recvKey) == hash then
+	local hash, time, message = table.unpack(string.split(message, ";"))
+	time = tonumber(time)
+	now = mapTime()
+	if now - 5 > time or time > now + 5 then
+		return sender, message, "Message too old"
+	elseif checksum(message:sub(41), hostData.recvKey, time) == hash then
 		return sender, message:sub(41), true, hostData
 	end
 	return sender, message, "Invalid message checksum"
