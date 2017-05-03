@@ -26,7 +26,7 @@ else
 		player = player
 	}))
 
-	if reply.success then
+	if reply.data and reply.data.success then
 		local pos = reply.data
 		term.setTextColor(colors.green)
 		print(player, " is at ", pos.x, ", ", pos.y, ", ", pos.z)
