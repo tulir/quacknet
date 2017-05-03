@@ -100,14 +100,14 @@ function handleServerReceived(sender, message)
 end
 
 function handleReceived(sender, message, computerID)
-	if not knownHosts[sender] then
+	if not quackkeys.get(sender) then
 		return sender, message, sender .. " has not been linked"
 	end
 	if computerID and computerID >= 0 and computerID ~= sender then
 		return sender, message, "Invalid computer id (expected " .. computerID .. " got " .. sender .. ")"
 	end
 
-	local hostData = knownHosts[sender]
+	local hostData = quackkeys.get(sender)
 	local hash = message:sub(1, 40)
 	if checksum(message:sub(41), hostData.recvKey) == hash then
 		return sender, message:sub(41), true, hostData
