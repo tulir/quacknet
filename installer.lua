@@ -34,6 +34,7 @@ install("servers/quackgpsd")
 
 install("programs/qhandshake")
 install("programs/qsend")
+install("programs/quacktrack")
 install("programs/activate-autorun")
 install("installer", "programs/update-quacknet")
 
