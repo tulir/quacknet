@@ -4,6 +4,17 @@ os.loadAPI("/lib/random")
 os.loadAPI("/lib/quackkeys")
 
 REQUEST_REPLY_TIMEOUT = 5
+DEBUG = false
+
+local function debug(message)
+	if not DEBUG then
+		return
+	end
+	local oldColor = term.getTextColor()
+	term.setTextColor(colors.cyan)
+	print("[Debug] ", message)
+	term.setTextColor(oldColor)
+end
 
 local width, height = term.getSize()
 
@@ -68,6 +79,8 @@ function listen()
 		data = handleServerReceived(sender, message)
 		if data.success then
 			return data
+		else
+			debug("Failed to receive message from " .. data.sender .. ": " .. data.error)
 		end
 	end
 end

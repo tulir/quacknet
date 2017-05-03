@@ -5,7 +5,7 @@ while true do
 	local msg = quacknet.listen()
 	if not msg.data then
 		term.setTextColor(colors.orange)
-		print("Invalid request from " .. sender)
+		print("Invalid request from " .. msg.sender)
 		msg.reply({
 			error = "Invalid data format"
 		})
