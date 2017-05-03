@@ -131,8 +131,8 @@ function handleReceived(sender, message, computerID)
 	now = mapTime()
 	if now - 5 > time or time > now + 5 then
 		return sender, message, "Message too old"
-	elseif checksum(message:sub(41), hostData.recvKey, time) == hash then
-		return sender, message:sub(41), true, hostData
+	elseif checksum(message, hostData.recvKey, time) == hash then
+		return sender, message, true, hostData
 	end
 	return sender, message, "Invalid message checksum"
 end
