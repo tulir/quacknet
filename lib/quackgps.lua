@@ -58,11 +58,11 @@ local function calculate(satellites)
 end
 
 function getPlayers()
-	return modem.callRemote("playerSensor_8", "getAllPlayers", false)
+	return bridge.callRemote("playerSensor_8", "getAllPlayers", false)
 end
 
 function getPlayersInDimension()
-	return modem.callRemote("playerSensor_8", "getPlayers", true)
+	return bridge.callRemote("playerSensor_8", "getPlayers", true)
 end
 
 function isInDimension(player)
