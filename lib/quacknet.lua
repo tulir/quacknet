@@ -31,7 +31,8 @@ local function checksum(message, secret, time)
 end
 
 local function compile(message, secret)
-	return checksum(message, secret, mapTime()) .. ";" .. mapTime() .. ";" .. message
+	time = mapTime()
+	return checksum(message, secret, time) .. ";" .. time .. ";" .. message
 end
 
 local function randomSeed()
