@@ -10,5 +10,11 @@ local reply = quacknet.request(39, textutils.serialize({
 	player = args[1]
 }))
 
-pos = reply.data
-print(args[1], " is at ", pos.x, ", ", pos.y, ", ", pos.z)
+if reply.success then
+	pos = reply.data
+	term.setTextColor(colors.green)
+	print(args[1], " is at ", pos.x, ", ", pos.y, ", ", pos.z)
+else
+	term.setTextColor(colors.red)
+	print(reply.error)
+end
