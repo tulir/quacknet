@@ -12,17 +12,17 @@ local function getSatelliteOutput()
 		{
 			posX = 25000,
 			posY = 25000,
-			data = modem.callRemote("playerSensor_8", "getNearbyPlayers")
+			data = bridge.callRemote("playerSensor_8", "getNearbyPlayers")
 		},
 		{
 			posX = -25000,
 			posY = 25000,
-			data = modem.callRemote("playerSensor_9", "getNearbyPlayers")
+			data = bridge.callRemote("playerSensor_9", "getNearbyPlayers")
 		},
 		{
 			posX = 0,
 			posY = -30000,
-			data = modem.callRemote("playerSensor_10", "getNearbyPlayers")
+			data = bridge.callRemote("playerSensor_10", "getNearbyPlayers")
 		}
 	}
 end
