@@ -126,7 +126,8 @@ function handleReceived(sender, message, computerID)
 	end
 
 	local hostData = quackkeys.get(sender)
-	local hash, time, message = table.unpack(string.split(message, ";"))
+	local hash, time
+	hash, time, message = table.unpack(string.split(message, ";"))
 	time = tonumber(time)
 	now = mapTime()
 	if now - 5 > time or time > now + 5 then
