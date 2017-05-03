@@ -60,10 +60,11 @@ function request(target, data)
 			local success
 			sender, reply, success = handleReceived(sender, reply)
 			if success == true then
+				ok, data = pcall(textutils.unserialize, reply)
 				return {
 					success = true,
 					text = reply,
-					data = pcall(textutils.unserialize, text)
+					data = data
 				}
 			end
 		elseif event == "timer" then
