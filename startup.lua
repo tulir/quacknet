@@ -15,12 +15,12 @@ if not modem then
 	return
 end
 
-if fs.exists("autorun") and fs.isDir("autorun") then
-	local files = fs.list("autorun")
+if fs.exists("/autorun") and fs.isDir("/autorun") then
+	local files = fs.list("/autorun")
 	table.sort(files)
 	for n, file in ipairs(files) do
 		if file:sub(-3) == "pre" and file:sub(1, 1) ~= "." and not fs.isDir("autorun/" .. file) then
-			shell.run("autorun/" .. file)
+			shell.run("/autorun/" .. file)
 		end
 	end
 end
@@ -29,25 +29,25 @@ term.clear()
 term.setCursorPos(1, 1)
 term.setTextColor(colors.orange)
 print("Loading libquacknet...")
-os.loadAPI("lib/quacknet")
+os.loadAPI("/lib/quacknet")
 if bridge then
 	print("Loading libquackgps")
-	os.loadAPI("lib/quackgps")
+	os.loadAPI("/lib/quackgps")
 end
 shell.setPath(shell.path() .. ":/programs")
-quacknet.loadKnownHosts()
+quackkeys.load()
 quacknet.open(modem)
 term.clear()
 term.setCursorPos(1, 1)
 term.setTextColor(colors.yellow)
 print(os.version() .. " with " .. quacknet.version())
 
-if fs.exists("autorun") and fs.isDir("autorun") then
-	local files = fs.list("autorun")
+if fs.exists("/autorun") and fs.isDir("/autorun") then
+	local files = fs.list("/autorun")
 	table.sort(files)
 	for n, file in ipairs(files) do
 		if file:sub(-3) ~= "pre" and file:sub(1, 1) ~= "." and not fs.isDir("autorun/" .. file) then
-			shell.run("autorun/" .. file)
+			shell.run("/autorun/" .. file)
 		end
 	end
 end
