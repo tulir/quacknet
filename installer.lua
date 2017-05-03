@@ -28,6 +28,7 @@ install("lib/quacknet")
 install("lib/quackkeys")
 install("lib/quackgps")
 install("lib/random")
+install("lib/strings")
 
 install("servers/door")
 install("servers/quackgpsd")
