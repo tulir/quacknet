@@ -14,14 +14,14 @@ end
 
 local player = args[1]
 if os.getComputerID() == 39 then
-	if not libquackgps.isOnline(player) then
+	if not quackgps.isOnline(player) then
 		term.setTextColor(colors.orange)
 		print("Player not online.")
-	elseif not libquackgps.isInWorld(player) then
+	elseif not quackgps.isInWorld(player) then
 		term.setTextColor(colors.orange)
 		print("Player not in this dimension.")
 	else
-		local x, y, z = libquackgps.track(player)
+		local x, y, z = quackgps.track(player)
 		term.setTextColor(colors.green)
 		print(player, " is at ", round(x, 1), ", ", round(y, 1), ", ", round(z, 1))
 	end
