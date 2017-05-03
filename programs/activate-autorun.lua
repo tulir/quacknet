@@ -8,5 +8,5 @@ end
 filePath = args[1]
 fileName = strings.split(fileName, "/").remove()
 file = fs.open("/autorun/" .. fileName, "w")
-file.write("shell.run(\"" .. table.join(args, " ") .. "\")")
+file.write("shell.run(\"" .. table.concat(args, " ") .. "\")")
 file.close()

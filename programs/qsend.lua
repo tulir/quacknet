@@ -4,7 +4,7 @@ if table.getn(args) < 2 then
 	print("Usage: qsend <target> <message>")
 end
 target = tonumber(table.remove(args, 1))
-local reply = quacknet.request(target, table.join(args, " "))
+local reply = quacknet.request(target, table.concat(args, " "))
 if reply then
 	term.setTextColor(colors.green)
 	print(reply.text)
