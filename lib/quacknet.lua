@@ -1,4 +1,5 @@
 os.loadAPI("/lib/sha1")
+os.loadAPI("/lib/base64")
 os.loadAPI("/lib/aes")
 os.loadAPI("/lib/strings")
 os.loadAPI("/lib/maths")
