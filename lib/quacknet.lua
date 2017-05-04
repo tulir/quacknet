@@ -151,7 +151,7 @@ function handleReceived(sender, message, computerID)
 	elseif hash == "c" then
 		message = aes.decrypt(hostData.recvKey, message)
 		if string.startsWith(message, "quacknet-encrypted:") then
-			return sender, message:sub("quacknet-encrypted:":len() + 1), true, hostData
+			return sender, message:sub(("quacknet-encrypted:"):len() + 1), true, hostData
 		else
 			return sender, message, "Invalid encrypted message"
 		end
