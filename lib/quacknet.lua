@@ -38,7 +38,7 @@ local function compile(message, secret)
 end
 
 local function compileEncrypted(message, secret)
-	return "c;" .. mapTime() .. ";" .. aes.encrypt(hostData.sendKey, "quacknet-encrypted:" .. message)
+	return "c;" .. mapTime() .. ";" .. aes.encrypt(secret, "quacknet-encrypted:" .. message)
 end
 
 local function randomSeed()
