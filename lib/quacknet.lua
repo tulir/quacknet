@@ -125,7 +125,7 @@ function handleServerReceived(sender, message)
 			end
 			os.sleep(0.1)
 			if encrypt then
-				rednet.send(target, compileEncrypted(data, hostData.sendKey))
+				rednet.send(sender, compileEncrypted(data, hostData.sendKey))
 			else
 				rednet.send(sender, compile(data, hostData.sendKey))
 			end
