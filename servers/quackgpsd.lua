@@ -16,7 +16,11 @@ while true do
 			print("Request to track " .. msg.data.player .. " from " .. msg.sender)
 			local x, y, z = quackgps.track(msg.data.player)
 			msg.reply({success = true, x=x, y=y, z=z})
-		elseif data.command == "list" then
+		elseif msg.data.command == "track_all" then
+			term.setTextColor(colors.cyan)
+			print("Request to track all players in dimension")
+			msg.reply({success = true, players = quackgps.trackAll()}) 
+		elseif msg.data.command == "list" then
 			msg.reply(quackgps.getNames(true))
 		else
 			term.setTextColor(colors.orange)
