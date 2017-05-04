@@ -28,5 +28,5 @@ while true do
 			print(name, " ", math.round(pos.x, 1), ", ", math.round(pos.y, 1), ", ", math.round(pos.z, 1))
 		end
 	end
-	os.sleep(1)
+	os.sleep(0.25)
 end
