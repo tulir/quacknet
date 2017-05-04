@@ -9,17 +9,24 @@ while true do
 	term.setCursorPos(1, 1)
 	term.setTextColor(colors.orange)
 	print("Day: ", os.day(), ", Time: ", hour, ":", minute)
-
-	local darkBlue = false
-	for name, location in pairs(reply.data.players) do
-		if darkBlue then
-			term.setTextColor(colors.blue)
-		else
-			term.setTextColor(colors.lightBlue)
+	if not reply.data or not reply.data.success then
+		term.setTextColor(colors.red)
+		print("Failed to track players!")
+		if reply.data and reply.data.error then
+			print("  ", reply.data.error)
 		end
-		darkBlue = not darkBlue
-		pos = {x = location[1], y = location[2], z = location[3]}
-		print(name, " ", math.round(pos.x, 1), ", ", math.round(pos.y, 1), ", ", math.round(pos.z, 1))
+	else
+		local darkBlue = false
+		for name, location in pairs(reply.data.players) do
+			if darkBlue then
+				term.setTextColor(colors.blue)
+			else
+				term.setTextColor(colors.lightBlue)
+			end
+			darkBlue = not darkBlue
+			pos = {x = location[1], y = location[2], z = location[3]}
+			print(name, " ", math.round(pos.x, 1), ", ", math.round(pos.y, 1), ", ", math.round(pos.z, 1))
+		end
 	end
 	os.sleep(1)
 end
