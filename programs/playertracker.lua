@@ -17,6 +17,8 @@ while true do
 			print("  ", reply.data.error)
 		end
 	else
+		term.setTextColor(colors.cyan)
+		print("Player           @ position (x, y, z)")
 		local darkBlue = false
 		for name, location in pairs(reply.data.players) do
 			if darkBlue then
