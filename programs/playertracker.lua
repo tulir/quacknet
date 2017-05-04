@@ -26,7 +26,7 @@ while true do
 			end
 			darkBlue = not darkBlue
 			pos = {x = location[1], y = location[2], z = location[3]}
-			print(name, " @ ", math.round(pos.x, 1), ", ", math.round(pos.y, 1), ", ", math.round(pos.z, 1))
+			print(string.format("%-16s", name), " @ ", math.round(pos.x, 1), ", ", math.round(pos.y, 1), ", ", math.round(pos.z, 1))
 		end
 	end
 	os.sleep(0.25)
