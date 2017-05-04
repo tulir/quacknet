@@ -8,7 +8,7 @@ while true do
 	term.clear()
 	term.setCursorPos(1, 1)
 	term.setTextColor(colors.orange)
-	print("QuackTrack 1.0 - Day: ", os.day(), ", Time: ", hour, ":", minute)
+	print("QuackTrack 1.0 - Day: ", os.day(), ", Time: ", string.format("%02d", hour), ":", string.format("%02d", minute))
 	print("")
 	if not reply.data or not reply.data.success then
 		term.setTextColor(colors.red)
