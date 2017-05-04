@@ -24,6 +24,7 @@ fs.makeDir("autorun")
 
 term.setTextColor(colors.yellow)
 install("lib/sha1")
+install("lib/aes")
 install("lib/quacknet")
 install("lib/quackkeys")
 install("lib/quackgps")
