@@ -39,7 +39,7 @@ local function compile(message, secret)
 end
 
 local function compileEncrypted(message, secret)
-	return "c;" .. mapTime() .. ";" .. aes.encrypt(secret, "quacknet-encrypted:" .. message)
+	return "c;" .. mapTime() .. ";" .. base64.encode(aes.encrypt(secret, "quacknet-encrypted:" .. message))
 end
 
 local function randomSeed()
@@ -150,7 +150,7 @@ function handleReceived(sender, message, computerID)
 	if now - 5 > time or time > now + 5 then
 		return sender, message, "Message too old"
 	elseif hash == "c" then
-		message = aes.decrypt(hostData.recvKey, message)
+		message = aes.decrypt(hostData.recvKey, base64.decode(message))
 		if string.startsWith(message, "quacknet-encrypted:") then
 			return sender, message:sub(("quacknet-encrypted:"):len() + 1), true, hostData
 		else
