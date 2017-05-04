@@ -1,5 +1,6 @@
 os.loadAPI("/lib/sha1")
 os.loadAPI("/lib/strings")
+os.loadAPI("/lib/maths")
 os.loadAPI("/lib/random")
 os.loadAPI("/lib/quackkeys")
 
