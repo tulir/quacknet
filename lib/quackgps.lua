@@ -90,7 +90,8 @@ function trackAll()
 
 	local positions = {}
 	for name, playerEntry in pairs(data) do
-		positions[name] = calculate(playerEntry)
+		local x, y, z = calculate(playerEntry)
+		positions[name] = { x, y, z }
 	end
 	return positions
 end
