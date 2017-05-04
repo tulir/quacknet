@@ -36,7 +36,7 @@ local function compile(message, secret)
 	time = mapTime()
 	return checksum(message, secret, time) .. ";" .. time .. ";" .. message
 end
-rednet.send
+
 local function compileEncrypted(message, secret)
 	return "c;" .. mapTime() .. ";" .. aes.encrypt(hostData.sendKey, "quacknet-encrypted:" .. message)
 end
