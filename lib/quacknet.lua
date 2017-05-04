@@ -1,4 +1,5 @@
 os.loadAPI("/lib/sha1")
+os.loadAPI("/lib/aes")
 os.loadAPI("/lib/strings")
 os.loadAPI("/lib/maths")
 os.loadAPI("/lib/random")
@@ -35,13 +36,17 @@ local function compile(message, secret)
 	time = mapTime()
 	return checksum(message, secret, time) .. ";" .. time .. ";" .. message
 end
+rednet.send
+local function compileEncrypted(message, secret)
+	return "c;" .. mapTime() .. ";" .. aes.encrypt(hostData.sendKey, "quacknet-encrypted:" .. message)
+end
 
 local function randomSeed()
 	math.randomseed(mapTime())
 	return math.random(2147483647)
 end
 
-function request(target, data)
+function request(target, data, encrypt)
 	if type(data) == "table" then
 		data = textutils.serialize(data)
 	end
@@ -52,7 +57,11 @@ function request(target, data)
 			error = target .. " has not been linked."
 		}
 	end
-	rednet.send(target, compile(data, hostData.sendKey))
+	if encrypt then
+		rednet.send(target, compileEncrypted(data, hostData.sendKey))
+	else
+		rednet.send(target, compile(data, hostData.sendKey))
+	end
 
 	timer = os.startTimer(REQUEST_REPLY_TIMEOUT)
 	while true do
@@ -110,12 +119,16 @@ function handleServerReceived(sender, message)
 		sender = sender,
 		text = message,
 		data = data,
-		reply = function(data)
+		reply = function(data, encrypt)
 			if type(data) == "table" then
 				data = textutils.serialize(data)
 			end
 			os.sleep(0.1)
-			rednet.send(sender, compile(data, hostData.sendKey))
+			if encrypt then
+				rednet.send(target, compileEncrypted(data, hostData.sendKey))
+			else
+				rednet.send(sender, compile(data, hostData.sendKey))
+			end
 		end
 	}
 end
@@ -135,6 +148,13 @@ function handleReceived(sender, message, computerID)
 	now = mapTime()
 	if now - 5 > time or time > now + 5 then
 		return sender, message, "Message too old"
+	elseif hash == "c" then
+		message = aes.decrypt(hostData.recvKey, message)
+		if string.startsWith(message, "quacknet-encrypted:") then
+			return sender, message:sub("quacknet-encrypted:":len() + 1), true, hostData
+		else
+			return sender, message, "Invalid encrypted message"
+		end
 	elseif checksum(message, hostData.recvKey, time) == hash then
 		return sender, message, true, hostData
 	end
