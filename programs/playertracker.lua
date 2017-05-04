@@ -8,7 +8,8 @@ while true do
 	term.clear()
 	term.setCursorPos(1, 1)
 	term.setTextColor(colors.orange)
-	print("Day: ", os.day(), ", Time: ", hour, ":", minute)
+	print("QuackTrack 1.0 - Day: ", os.day(), ", Time: ", hour, ":", minute)
+	print("")
 	if not reply.data or not reply.data.success then
 		term.setTextColor(colors.red)
 		print("Failed to track players!")
