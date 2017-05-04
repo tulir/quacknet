@@ -78,7 +78,9 @@ function trackAll()
 	local data = {}
 	for index, entry in ipairs(rawdata) do
 		for _, playerEntry in ipairs(entry.data) do
-			data[playerEntry.player] = {}
+			if data[playerEntry.player] == nil then
+				data[playerEntry.player] = {}
+			end
 			data[playerEntry.player][index] = {}
 			data[playerEntry.player][index].x = entry.posX
 			data[playerEntry.player][index].y = entry.posY
