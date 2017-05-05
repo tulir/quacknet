@@ -1,10 +1,46 @@
-local modem = false
-for _, side in ipairs(peripheral.getNames()) do
-	if peripheral.getType(side) == "modem" then
-		if peripheral.call(side, "isWireless") then
-			modem = side
-		elseif type(peripheral.wrap(side).openRemote) == "function" then
-			_G["bridge"] = peripheral.wrap(side)
+local modem = false, bridgeWrapped = false
+if fs.exists("/.modem") then
+	local file = fs.open("/.modem", "r")
+	modem = file.readLine()
+	file.close()
+	if peripheral.getType(modem) ~= "modem" or not peripheral.call(modem, "isWireless") then
+		term.setTextColor(colors.red)
+		print("[Quacknet] Side set in /.modem does not contain a wireless modem! Removing file...")
+		os.sleep(2)
+		fs.delete("/.modem")
+		modem = false
+	end
+end
+
+if fs.exists("/.bridge") then
+	local file = fs.open("/.bridge", "r")
+	local bridge = file.readLine()
+	if peripheral.getType(bridge) == "modem" and type(peripheral.wrap(bridge).openRemote) == "function" then
+		_G["bridge"] = peripheral.wrap(bridge)
+		bridgeWrapped = true
+	else
+		term.setTextColor(colors.red)
+		print("[Quacknet] Side set in /.bridge does not contain a wireless bridge! Removing file...")
+		os.sleep(2)
+		fs.delete("/.bridge")
+	end
+end
+
+if not modem or not bridgeWrapped then
+	for _, side in ipairs(peripheral.getNames()) do
+		if peripheral.getType(side) == "modem" then
+			if not modem and peripheral.call(side, "isWireless") then
+				modem = side
+				local file = fs.open("/.modem", w)
+				file.write(modem)
+				file.close()
+			elseif not bridgeWrapped and type(peripheral.wrap(side).openRemote) == "function" then
+				_G["bridge"] = peripheral.wrap(side)
+				local file = fs.open("/.bridge", w)
+				file.write(side)
+				file.close()
+				bridgeWrapped = true
+			end
 		end
 	end
 end
