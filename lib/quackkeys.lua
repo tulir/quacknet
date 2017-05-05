@@ -44,9 +44,9 @@ function handshakeA()
 	local sendKey = random.string(32)
 	local recvKey = random.string(32)
 	local computerID = tonumber(ask("B-end ID"))
-	knownHosts[computerID] = {
+	keys[computerID] = {
 		sendKey = sendKey,
-		recvKey = recvKey,
+		recvKey = recvKey
 	}
 	print("Handshake secret: " .. ("%X"):format(randSeed))
 	local _, message, success = receiveOnce(computerID)
@@ -62,11 +62,11 @@ function handshakeB()
 	local computerID = tonumber(ask("A-end ID"))
 	local randSeed = tonumber(ask("Handshake secret"), 16)
 	math.randomseed(randSeed)
-	local recvKey = randomKey()
-	local sendKey = randomKey()
-	knownHosts[computerID] = {
+	local recvKey = random.string(32)
+	local sendKey = random.string(32)
+	keys[computerID] = {
 		sendKey = sendKey,
-		recvKey = recvKey,
+		recvKey = recvKey
 	}
 	send(computerID, "ping")
 	local _, message, success = receiveOnce(computerID)
