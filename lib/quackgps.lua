@@ -1,3 +1,19 @@
+team = {
+  "tulir293",
+  "Natsku123"
+}
+
+allies = {
+  "oukki146",
+  "loadingjumala"
+}
+
+mypos = {
+	x = 0,
+	y = 0,
+	z = 0
+}
+
 local function contains(array, element)
 	for _, value in ipairs(array) do
 		if value == element then
