@@ -64,7 +64,7 @@ function printRadar(data)
 			paintutils.drawPixel(
 				(quacktrackdata.mypos.x - data.players[player][1]) / 16 + offsetX,
 				(quacktrackdata.mypos.z - data.players[player][3]) / 16 + offsetY,
-				colors.red
+				color
 			)
 		end
 	end
