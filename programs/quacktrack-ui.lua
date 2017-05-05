@@ -4,7 +4,7 @@ local radar = table.contains(args, "--radar")
 local list = table.contains(args, "--list") or not radar
 local small = table.contains(args, "--small")
 
-os.loadAPI("/quacktrack-data")
+os.loadAPI("/quacktrackdata")
 
 RADAR_CHUNKS = 32
 
@@ -55,15 +55,15 @@ function printRadar(data)
 	local playerDistances = playerSensor.getNearbyPlayers(radarDistance)
 	for player, distance in pairs(table.mapify(playerDistances, "player", "distance")) do
 		local color = colors.red
-		if table.contains(quackgps.team, player) then
+		if table.contains(quacktrackdata.team, player) then
 			color = colors.lime
-		elseif table.contains(quackgps.allies, player) then
+		elseif table.contains(quacktrackdata.allies, player) then
 			color = colors.green
 		end
 		if distance < radarDistance then
 			paintutils.drawPixel(
-				(quackgps.mypos.x - data[player].x) / 16 + offsetX,
-				(quackgps.mypos.z - data[player].z) / 16 + offsetY,
+				(quacktrackdata.mypos.x - data[player].x) / 16 + offsetX,
+				(quacktrackdata.mypos.z - data[player].z) / 16 + offsetY,
 				colors.red
 			)
 		end
