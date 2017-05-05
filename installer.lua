@@ -32,6 +32,7 @@ install("lib/quackgps")
 install("lib/random")
 install("lib/maths")
 install("lib/strings")
+install("lib/tables")
 
 install("servers/door")
 install("servers/quackgpsd")
