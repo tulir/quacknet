@@ -62,8 +62,8 @@ function printRadar(data)
 		end
 		if distance < radarDistance then
 			paintutils.drawPixel(
-				(quacktrackdata.mypos.x - data.players[player][1]) / 16 + offsetX,
-				(quacktrackdata.mypos.z - data.players[player][3]) / 16 + offsetY,
+				(width / 2) - (quacktrackdata.mypos.x - data.players[player][1]) / 16 + offsetX,
+				(height / 2) - (quacktrackdata.mypos.z - data.players[player][3]) / 16 + offsetY,
 				color
 			)
 		end
