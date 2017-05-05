@@ -62,8 +62,8 @@ function printRadar(data)
 		end
 		if distance < radarDistance then
 			paintutils.drawPixel(
-				(quacktrackdata.mypos.x - data[player].x) / 16 + offsetX,
-				(quacktrackdata.mypos.z - data[player].z) / 16 + offsetY,
+				(quacktrackdata.mypos.x - data.players[player][1]) / 16 + offsetX,
+				(quacktrackdata.mypos.z - data.players[player][3]) / 16 + offsetY,
 				colors.red
 			)
 		end
@@ -76,6 +76,7 @@ while true do
 	local minute = math.floor((os.time() % 1) * 60)
 	local reply = quacknet.request(39, {command="track_all"})
 
+	term.setBackgroundColor(colors.black)
 	term.clear()
 	term.setCursorPos(1, 1)
 	term.setTextColor(colors.orange)
