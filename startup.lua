@@ -1,4 +1,5 @@
-local modem = false, bridgeWrapped = false
+local modem = false
+local bridgeWrapped = false
 if fs.exists("/.modem") then
 	local file = fs.open("/.modem", "r")
 	modem = file.readLine()
@@ -31,12 +32,12 @@ if not modem or not bridgeWrapped then
 		if peripheral.getType(side) == "modem" then
 			if not modem and peripheral.call(side, "isWireless") then
 				modem = side
-				local file = fs.open("/.modem", w)
+				local file = fs.open("/.modem", "w")
 				file.write(modem)
 				file.close()
 			elseif not bridgeWrapped and type(peripheral.wrap(side).openRemote) == "function" then
 				_G["bridge"] = peripheral.wrap(side)
-				local file = fs.open("/.bridge", w)
+				local file = fs.open("/.bridge", "w")
 				file.write(side)
 				file.close()
 				bridgeWrapped = true
