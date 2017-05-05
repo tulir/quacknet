@@ -16,7 +16,7 @@ if quackgps then
 	else
 		local x, y, z = quackgps.track(player)
 		term.setTextColor(colors.green)
-		print(player, " is at ", round(x, 1), ", ", round(y, 1), ", ", round(z, 1))
+		print(string.format("%s is at %.1f, %.1f, %.1f", player, x, y, z))
 	end
 else
 	local reply = quacknet.request(39, textutils.serialize({
@@ -27,7 +27,7 @@ else
 	if reply.data and reply.data.success then
 		local pos = reply.data
 		term.setTextColor(colors.green)
-		print(player, " is at ", math.round(pos.x, 1), ", ", math.round(pos.y, 1), ", ", math.round(pos.z, 1))
+		print(string.format("%s is at %.1f, %.1f, %.1f", player, pos.x, pos.y, pos.z))
 	else
 		term.setTextColor(colors.red)
 		print(reply.error)
