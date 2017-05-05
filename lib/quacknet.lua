@@ -95,7 +95,6 @@ function listen(computerID)
 			open(modemSide)
 		end
 		local _, sender, message = os.pullEvent("rednet_message")
-		local success
 		data = handleServerReceived(sender, message)
 		if data.success and (not computerID or data.sender == computerID) then
 			return data
