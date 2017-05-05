@@ -52,6 +52,25 @@ if not modem then
 	return
 end
 
+local function autorun(directory)
+	if directory then
+		directory = "/autorun/" .. directory
+	else
+		directory = "/autorun"
+	end
+	if fs.exists(directory) and fs.isDir(directory) then
+		local files = fs.list(directory)
+		table.sort(files)
+		for n, file in ipairs(files) do
+			if file:sub(1, 1) ~= "." and not fs.isDir(directory .. "/" .. file) then
+				shell.run(directory .. "/" .. file)
+			end
+		end
+	end
+end
+
+autorun("preinit")
+
 term.clear()
 term.setCursorPos(1, 1)
 term.setTextColor(colors.orange)
@@ -62,15 +81,7 @@ if _G["bridge"] then
 	os.loadAPI("/lib/quackgps")
 end
 
-if fs.exists("/autorun") and fs.isDir("/autorun") then
-	local files = fs.list("/autorun")
-	table.sort(files)
-	for n, file in ipairs(files) do
-		if file:sub(-3) == "pre" and file:sub(1, 1) ~= "." and not fs.isDir("autorun/" .. file) then
-			shell.run("/autorun/" .. file)
-		end
-	end
-end
+autorun("postinit")
 
 shell.setPath(shell.path() .. ":/programs")
 quackkeys.load()
@@ -80,12 +91,4 @@ term.setCursorPos(1, 1)
 term.setTextColor(colors.yellow)
 print(os.version() .. " with " .. quacknet.version())
 
-if fs.exists("/autorun") and fs.isDir("/autorun") then
-	local files = fs.list("/autorun")
-	table.sort(files)
-	for n, file in ipairs(files) do
-		if file:sub(-3) ~= "pre" and file:sub(1, 1) ~= "." and not fs.isDir("autorun/" .. file) then
-			shell.run("/autorun/" .. file)
-		end
-	end
-end
+autorun()
