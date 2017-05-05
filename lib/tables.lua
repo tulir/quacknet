@@ -7,7 +7,7 @@ function table.slice(table, st, en)
 end
 
 function table.contains(table, value)
-	for _, value in pairs(table) do
+	for _, element in ipairs(table) do
 		if value == element then
 			return true
 		end
