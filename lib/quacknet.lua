@@ -52,7 +52,7 @@ function request(target, data, encrypt)
 			error = target .. " has not been linked."
 		}
 	end
-	if isClosed(modemSide) then
+	if not isOpen(modemSide) then
 		open(modemSide)
 	end
 	if encrypt then
@@ -63,7 +63,7 @@ function request(target, data, encrypt)
 
 	timer = os.startTimer(REQUEST_REPLY_TIMEOUT)
 	while true do
-		if isClosed(modemSide) then
+		if not isOpen(modemSide) then
 			open(modemSide)
 		end
 		local event, sender, reply = os.pullEvent()
@@ -91,7 +91,7 @@ end
 
 function listen(computerID)
 	while true do
-		if isClosed(modemSide) then
+		if not isOpen(modemSide) then
 			open(modemSide)
 		end
 		local _, sender, message = os.pullEvent("rednet_message")
