@@ -62,7 +62,7 @@ function getPlayers()
 end
 
 function getPlayersInDimension()
-	return bridge.callRemote("playerSensor_8", "getPlayers", true)
+	return bridge.callRemote("playerSensor_8", "getAllPlayers", true)
 end
 
 function isInDimension(player)
