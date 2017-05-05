@@ -25,6 +25,7 @@ function table.mapify(table, keyField, valueField)
 			newTable[key] = entry
 		end
 	end
+	return newTable
 end
 
 function table.merge(t1, t2)
