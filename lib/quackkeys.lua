@@ -34,7 +34,7 @@ local function ask(query)
 end
 
 local function randomSeed()
-	math.randomseed(mapTime())
+	math.randomseed(os.clock() + (os.time() * 1000 + 18000) % 24000 + os.day() * 24000)
 	return math.random(2147483647)
 end
 
