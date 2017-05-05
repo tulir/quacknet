@@ -10,7 +10,7 @@ if quackgps then
 	if not quackgps.isOnline(player) then
 		term.setTextColor(colors.orange)
 		print("Player not online.")
-	elseif not quackgps.isInWorld(player) then
+	elseif not quackgps.isInDimension(player) then
 		term.setTextColor(colors.orange)
 		print("Player not in this dimension.")
 	else
