@@ -23,7 +23,7 @@ function get(target)
 end
 
 local function ask(query)
-	if width < query:len() + 6 then
+	if width < query:len() + ("Enter "):len() + 6 then
 		print("Enter ", query)
 	else
 		term.write("Enter ")
