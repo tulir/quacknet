@@ -15,6 +15,16 @@ if not modem then
 	return
 end
 
+term.clear()
+term.setCursorPos(1, 1)
+term.setTextColor(colors.orange)
+print("Loading libquacknet...")
+os.loadAPI("/lib/quacknet")
+if _G["bridge"] then
+	print("Loading libquackgps")
+	os.loadAPI("/lib/quackgps")
+end
+
 if fs.exists("/autorun") and fs.isDir("/autorun") then
 	local files = fs.list("/autorun")
 	table.sort(files)
@@ -25,15 +35,6 @@ if fs.exists("/autorun") and fs.isDir("/autorun") then
 	end
 end
 
-term.clear()
-term.setCursorPos(1, 1)
-term.setTextColor(colors.orange)
-print("Loading libquacknet...")
-os.loadAPI("/lib/quacknet")
-if _G["bridge"] then
-	print("Loading libquackgps")
-	os.loadAPI("/lib/quackgps")
-end
 shell.setPath(shell.path() .. ":/programs")
 quackkeys.load()
 quacknet.open(modem)
