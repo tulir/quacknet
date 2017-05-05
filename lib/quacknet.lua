@@ -20,8 +20,6 @@ local function debug(message)
 	term.setTextColor(oldColor)
 end
 
-local width, height = term.getSize()
-
 function version()
 	return "Quacknet 1.0"
 end

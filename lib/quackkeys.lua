@@ -1,5 +1,7 @@
 local keys = {}
 
+local width, height = term.getSize()
+
 function save()
 	file = fs.open("/authorized_keys", "w")
 	file.write(textutils.serialize(keys))
