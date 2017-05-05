@@ -66,6 +66,7 @@ function printRadar(data)
 			)
 		end
 	end
+	term.setBackgroundColor(colors.black)
 end
 
 while true do
