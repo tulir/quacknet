@@ -5,11 +5,11 @@ if table.getn(args) < 1 then
 elseif args[1] == "a" or args[1] == "A" then
 	print("My ID is ", os.getComputerID())
 	quackkeys.handshakeA()
-	quackkeys.saveKnownHosts()
+	quackkeys.save()
 elseif args[1] == "b" or args[1] == "B" then
 	print("My ID is ", os.getComputerID())
 	quackkeys.handshakeB()
-	quackkeys.saveKnownHosts()
+	quackkeys.save()
 else
 	term.setTextColor(colors.red)
 	print("Usage: qhandshake <a/b>")

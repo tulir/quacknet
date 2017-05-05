@@ -69,11 +69,11 @@ function handshakeB()
 		recvKey = recvKey
 	}
 	local reply = quacknet.request(computerID, "ping")
-	if reply == nil then
+	if not reply.success then
 		print("Link forming failed: No pong received.")
 	elseif reply.text == "pong" then
 		print("Link with " .. computerID .. " formed successfully")
 	else
-		print("Link forming failed: Unexpected handshake message: " .. message)
+		print("Link forming failed: Unexpected handshake message: " .. reply.text)
 	end
 end
