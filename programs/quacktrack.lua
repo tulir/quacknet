@@ -5,10 +5,8 @@ if table.getn(args) < 1 then
 	return
 end
 
--- TODO unhardcode GPS master ID
-
 local player = args[1]
-if os.getComputerID() == 39 then
+if quackgps then
 	if not quackgps.isOnline(player) then
 		term.setTextColor(colors.orange)
 		print("Player not online.")
