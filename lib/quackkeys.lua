@@ -49,9 +49,9 @@ function handshakeA()
 		recvKey = recvKey
 	}
 	print("Handshake secret: " .. ("%X"):format(randSeed))
-	local _, message, success = receiveOnce(computerID)
-	send(computerID, "pong")
-	if success == 1 and message == "ping" then
+	local msg = quacknet.listen(computerID)
+	if msg.text == "ping" then
+		msg.reply("pong")
 		print("Link with " .. computerID .. " formed successfully")
 	else
 		print("Link forming failed: Unexpected handshake message: " .. message)
@@ -68,9 +68,10 @@ function handshakeB()
 		sendKey = sendKey,
 		recvKey = recvKey
 	}
-	send(computerID, "ping")
-	local _, message, success = receiveOnce(computerID)
-	if success == 1 and message == "pong" then
+	local reply = quacknet.request(computerID, "ping")
+	if reply == nil then
+		print("Link forming failed: No pong received.")
+	elseif reply.text == "pong" then
 		print("Link with " .. computerID .. " formed successfully")
 	else
 		print("Link forming failed: Unexpected handshake message: " .. message)

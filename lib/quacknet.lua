@@ -83,12 +83,12 @@ function request(target, data, encrypt)
 	end
 end
 
-function listen()
+function listen(computerID)
 	while true do
 		local _, sender, message = os.pullEvent("rednet_message")
 		local success
 		data = handleServerReceived(sender, message)
-		if data.success then
+		if data.success and sender == computerID then
 			return data
 		else
 			debug("Failed to receive message from " .. data.sender .. ": " .. data.error)
