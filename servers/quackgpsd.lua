@@ -3,7 +3,7 @@ print("QuackGPSd 0.1 started")
 
 while true do
 	local msg = quacknet.listen()
-	if not msg.data then
+	if not msg.data or type(msg.data) ~= "table" or not msg.data.command then
 		term.setTextColor(colors.orange)
 		print("Invalid request from " .. msg.sender)
 		msg.reply({
@@ -24,7 +24,7 @@ while true do
 			msg.reply(quackgps.getNames(true))
 		else
 			term.setTextColor(colors.orange)
-			print("Unknown command " .. data.command .. " from " .. sender)
+			print("Unknown command " .. msg.data.command .. " from " .. sender)
 			msg.reply({
 				success = false,
 				error = "Unknown command!"
