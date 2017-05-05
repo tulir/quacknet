@@ -39,8 +39,8 @@ end
 function printRadar(data)
 	local offsetX, offsetY = term.getCursorPos()
 	local width, height = term.getSize()
-	width = term.getSize()[0] - offsetX
-	height = term.getSize()[1] - offsetY
+	width = width - offsetX
+	height = height - offsetY
 
 	paintutils.drawFilledBox(
 		width / 2 - 1 + offsetX,
