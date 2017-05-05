@@ -8,7 +8,7 @@ os.loadAPI("/lib/random")
 os.loadAPI("/lib/quackkeys")
 
 REQUEST_REPLY_TIMEOUT = 5
-DEBUG = false
+DEBUG = true
 
 local function debug(message)
 	if not DEBUG then
@@ -77,6 +77,8 @@ function request(target, data, encrypt)
 					text = reply,
 					data = data
 				}
+			else
+				debug("Failed to receive message from " .. sender .. ": " .. success)
 			end
 		elseif event == "timer" then
 			if sender == timer then
