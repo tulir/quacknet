@@ -37,9 +37,10 @@ function printList(data)
 end
 
 function printRadar(data)
-	local offsetX, offsetY = table.unpack(term.getCursorPosition())
-	local width = term.getSize()[0] - offsetX
-	local height = term.getSize()[1] - offsetY
+	local offsetX, offsetY = term.getCursorPos()
+	local width, height = term.getSize()
+	width = term.getSize()[0] - offsetX
+	height = term.getSize()[1] - offsetY
 
 	paintutils.drawFilledBox(
 		width / 2 - 1 + offsetX,
