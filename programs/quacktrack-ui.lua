@@ -8,8 +8,7 @@ while true do
 	term.clear()
 	term.setCursorPos(1, 1)
 	term.setTextColor(colors.orange)
-	print("QuackTrack 1.0 - Day: ", os.day(), ", Time: ", string.format("%02d", hour), ":", string.format("%02d", minute))
-	print("")
+	print(string.format("QuackTrack UI 1.0 - Day: %d, Time: %02d:%02d", hour, minute))
 	if not reply.data or not reply.data.success then
 		term.setTextColor(colors.red)
 		print("Failed to track players!")
@@ -17,9 +16,8 @@ while true do
 			print("  ", reply.data.error)
 		end
 	else
-		term.setTextColor(colors.cyan)
-		print("Player           @ position (x, y, z)")
 		local darkBlue = false
+		print(string.format("%-16s @ %-7s %-5s %-7s", "Player", "x", "y", "z"))
 		for name, location in pairs(reply.data.players) do
 			if darkBlue then
 				term.setTextColor(colors.blue)
@@ -28,7 +26,7 @@ while true do
 			end
 			darkBlue = not darkBlue
 			pos = {x = location[1], y = location[2], z = location[3]}
-			print(string.format("%-16s", name), " @ ", math.round(pos.x, 1), ", ", math.round(pos.y, 1), ", ", math.round(pos.z, 1))
+			print(string.format("%-16s @ %-7.1f %-5.1f %-7.1f", name, pos.x, pos.y, pos.z))
 		end
 	end
 	os.sleep(0.25)
