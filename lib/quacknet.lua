@@ -41,11 +41,6 @@ local function compileEncrypted(message, secret)
 	return "c;" .. mapTime() .. ";" .. base64.encode(aes.encrypt(secret, "quacknet-encrypted:" .. message))
 end
 
-local function randomSeed()
-	math.randomseed(mapTime())
-	return math.random(2147483647)
-end
-
 function request(target, data, encrypt)
 	if type(data) == "table" then
 		data = textutils.serialize(data)

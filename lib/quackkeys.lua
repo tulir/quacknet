@@ -33,6 +33,11 @@ local function ask(query)
 	return read()
 end
 
+local function randomSeed()
+	math.randomseed(mapTime())
+	return math.random(2147483647)
+end
+
 function handshakeA()
 	local randSeed = randomSeed()
 	math.randomseed(randSeed)
