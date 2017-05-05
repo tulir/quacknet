@@ -41,8 +41,8 @@ end
 function handshakeA()
 	local randSeed = randomSeed()
 	math.randomseed(randSeed)
-	local sendKey = randomKey()
-	local recvKey = randomKey()
+	local sendKey = random.string(32)
+	local recvKey = random.string(32)
 	local computerID = tonumber(ask("B-end ID"))
 	knownHosts[computerID] = {
 		sendKey = sendKey,
