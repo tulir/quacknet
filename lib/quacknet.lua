@@ -52,6 +52,9 @@ function request(target, data, encrypt)
 			error = target .. " has not been linked."
 		}
 	end
+	if isClosed(modemSide) then
+		open(modemSide)
+	end
 	if encrypt then
 		rednet.send(target, compileEncrypted(data, hostData.sendKey))
 	else
@@ -60,6 +63,9 @@ function request(target, data, encrypt)
 
 	timer = os.startTimer(REQUEST_REPLY_TIMEOUT)
 	while true do
+		if isClosed(modemSide) then
+			open(modemSide)
+		end
 		local event, sender, reply = os.pullEvent()
 		if event == "rednet_message" then
 			local success
@@ -85,6 +91,9 @@ end
 
 function listen(computerID)
 	while true do
+		if isClosed(modemSide) then
+			open(modemSide)
+		end
 		local _, sender, message = os.pullEvent("rednet_message")
 		local success
 		data = handleServerReceived(sender, message)

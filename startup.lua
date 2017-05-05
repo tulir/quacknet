@@ -1,5 +1,5 @@
 local modem = false
-local bridgeWrapped = false
+local bridgeSide = false
 if fs.exists("/.modem") then
 	local file = fs.open("/.modem", "r")
 	modem = file.readLine()
@@ -17,8 +17,8 @@ if fs.exists("/.bridge") then
 	local file = fs.open("/.bridge", "r")
 	local bridge = file.readLine()
 	if peripheral.getType(bridge) == "modem" and type(peripheral.wrap(bridge).openRemote) == "function" then
+		bridgeSide = bridge
 		_G["bridge"] = peripheral.wrap(bridge)
-		bridgeWrapped = true
 	else
 		term.setTextColor(colors.red)
 		print("[Quacknet] Side set in /.bridge does not contain a wireless bridge! Removing file...")
@@ -36,11 +36,11 @@ if not modem or not bridgeWrapped then
 				file.write(modem)
 				file.close()
 			elseif not bridgeWrapped and type(peripheral.wrap(side).openRemote) == "function" then
+				bridgeSide = bridge
 				_G["bridge"] = peripheral.wrap(side)
 				local file = fs.open("/.bridge", "w")
 				file.write(side)
 				file.close()
-				bridgeWrapped = true
 			end
 		end
 	end
@@ -68,6 +68,9 @@ local function autorun(directory)
 		end
 	end
 end
+
+_G["modemSide"] = modem
+_G["bridgeSide"] = bridgeSide
 
 autorun("preinit")
 
