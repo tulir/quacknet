@@ -88,7 +88,7 @@ function listen(computerID)
 		local _, sender, message = os.pullEvent("rednet_message")
 		local success
 		data = handleServerReceived(sender, message)
-		if data.success and sender == computerID then
+		if data.success and data.sender == computerID then
 			return data
 		else
 			debug("Failed to receive message from " .. data.sender .. ": " .. data.error)
