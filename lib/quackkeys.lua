@@ -49,9 +49,6 @@ function handshakeA()
 		recvKey = recvKey
 	}
 	print("Handshake secret: " .. ("%X"):format(randSeed))
-	print(computerID)
-	print(sendKey)
-	print(recvKey)
 	local msg = quacknet.listen(computerID)
 	if msg.text == "ping" then
 		msg.reply("pong")
@@ -71,9 +68,6 @@ function handshakeB()
 		sendKey = sendKey,
 		recvKey = recvKey
 	}
-	print(computerID)
-	print(recvKey)
-	print(sendKey)
 	local reply = quacknet.request(computerID, "ping")
 	if not reply.success then
 		print("Link forming failed: " .. reply.error)

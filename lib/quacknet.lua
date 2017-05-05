@@ -8,7 +8,7 @@ os.loadAPI("/lib/random")
 os.loadAPI("/lib/quackkeys")
 
 REQUEST_REPLY_TIMEOUT = 5
-DEBUG = true
+DEBUG = false
 
 local function debug(message)
 	if not DEBUG then
@@ -151,7 +151,7 @@ function handleReceived(sender, message, computerID)
 	hash, time, message = table.unpack(string.split(message, ";"))
 	time = tonumber(time)
 	now = mapTime()
-	if now - 5 > time or time > now + 5 then
+	if now - 3 > time or time > now + 3 then
 		return sender, message, "Message too old"
 	elseif hash == "c" then
 		message = aes.decrypt(hostData.recvKey, base64.decode(message))
