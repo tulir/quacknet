@@ -4,6 +4,8 @@ local radar = table.contains(args, "--radar")
 local list = table.contains(args, "--list") or not radar
 local small = table.contains(args, "--small")
 
+os.loadAPI("/quacktrack-data")
+
 RADAR_CHUNKS = 32
 
 local monitor = peripheral.wrap("left")
