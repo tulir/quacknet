@@ -49,7 +49,7 @@ function printRadar(data)
 		height / 2 - 1 + offsetY,
 		width / 2 + 1 + offsetX,
 		height / 2 + 1 + offsetY,
-		colors.lime)
+		colors.cyan)
 
 	local radarDistance = RADAR_CHUNKS * 16
 	local playerDistances = playerSensor.getNearbyPlayers(radarDistance)
