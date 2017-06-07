@@ -11,6 +11,32 @@ local function validate(msg)
 	return true
 end
 
+local function loop(server)
+	local msg = quacknet.listen()
+	if validate(msg) then
+		local command = server.commands[msg.data.command]
+		if command ~= nil then
+			command(msg.data)
+		else
+			term.setTextColor(colors.orange)
+			print("Unknown command " .. msg.data.command .. " from " .. sender)
+			msg.reply({
+				success = false,
+				error = "Unknown command \"" .. msg.data.command .. "\"!"
+			})
+		end
+	end
+end
+
+local function start(server)
+	term.setTextColor(colors.yellow)
+	print(server.name .. " " .. server.version .. " started")
+
+	while true do
+		loop(server)
+	end
+end
+
 function create(name, version)
 	local server = {
 		name = name,
@@ -23,27 +49,8 @@ function create(name, version)
 	server.removeCommand = function(name)
 		server.commands[name] = nil
 	end
-
 	server.start = function()
-		term.setTextColor(colors.yellow)
-		print(server.name .. " " .. server.version .. " started")
-
-		while true do
-			local msg = quacknet.listen()
-			if msg.validate() then
-				local command = server.commands[msg.data.command]
-				if command ~= nil then
-					command(msg.data)
-				else
-					term.setTextColor(colors.orange)
-					print("Unknown command " .. msg.data.command .. " from " .. sender)
-					msg.reply({
-						success = false,
-						error = "Unknown command \"" .. msg.data.command .. "\"!"
-					})
-				end
-			end
-		end
+		start(server)
 	end
 
 	return server
