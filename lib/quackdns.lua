@@ -55,7 +55,7 @@ function resolveCached(name)
 		if cached.expired() then
 			cache[name] = nil
 		else
-			return cached.id, (cache.expiry - time.mcUnix())
+			return cached.id, (cached.expiry - time.mcUnix())
 		end
 	end
 	return nil
