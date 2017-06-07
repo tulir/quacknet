@@ -1,5 +1,5 @@
 args = { ... }
-if table.getn(args) < 1 then
+if #args < 1 then
 	term.setTextColor(colors.red)
 	print("Usage: qhandshake <a/b> [--noverify]")
 elseif args[1] == "a" or args[1] == "A" then

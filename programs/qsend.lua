@@ -1,5 +1,5 @@
 args = { ... }
-if table.getn(args) < 2 then
+if #args < 2 then
 	term.setTextColor(colors.red)
 	print("Usage: qsend <target> <message>")
 end

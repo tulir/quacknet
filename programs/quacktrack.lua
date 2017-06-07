@@ -1,5 +1,5 @@
 args = { ... }
-if table.getn(args) < 1 then
+if #args < 1 then
 	term.setTextColor(colors.red)
 	print("Usage: quacktrack <player>")
 	return
