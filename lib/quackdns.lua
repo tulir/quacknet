@@ -1,6 +1,14 @@
-hosts = {}
-cache = {}
+local hosts = {}
+local cache = {}
 SERVER = nil
+
+function getHosts()
+	return hosts
+end
+
+function getCache()
+	return cache
+end
 
 function save()
 	file = fs.open("/hosts", "w")
