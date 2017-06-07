@@ -162,10 +162,10 @@ function handleReceived(sender, message, computerID)
 
 	local hostData = quackkeys.get(sender)
 	local hash, time
-	hash, time, message = table.unpack(string.split(message, ";"))
-	time = tonumber(time)
+	hash, sendtime, message = table.unpack(string.split(message, ";"))
+	sendtime = tonumber(sendtime)
 	now = time.mcUnix()
-	if now - 3 > time or time > now + 3 then
+	if now - 3 > sendtime or sendtime > now + 3 then
 		return sender, message, "Message too old"
 	elseif hash == "c" then
 		message = aes.decrypt(hostData.recvKey, base64.decode(message))
@@ -174,7 +174,7 @@ function handleReceived(sender, message, computerID)
 		else
 			return sender, message, "Invalid encrypted message"
 		end
-	elseif checksum(message, hostData.recvKey, time) == hash then
+	elseif checksum(message, hostData.recvKey, sendtime) == hash then
 		return sender, message, true, hostData
 	end
 	return sender, message, "Invalid message checksum"
