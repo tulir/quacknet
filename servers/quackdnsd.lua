@@ -1,33 +1,31 @@
 local quackdnsd = quackserver.create("QuackDNSd", "0.1")
 
-quackdnsd.handleCommand("resolve", function(msg)
-	local result = quackdns.resolveLocal(msg.data.hostname)
+quackdnsd.handle("resolve", function(data)
+	local result = quackdns.resolveLocal(data.hostname)
 	if result then
-		msg.reply({
+		return {
 			success = true,
 			id = result
 		})
-	else
-		msg.reply({
-			success = false,
-			error = "NXDOMAIN"
-		})
 	end
+	return {
+		success = false,
+		error = "NXDOMAIN"
+	}
 end)
 
-quackdnsd.handleCommand("reverse", function(msg)
-	local result = quackdns.reverseLocal(msg.data.hostname)
+quackdnsd.handle("reverse", function(data)
+	local result = quackdns.reverseLocal(data.hostname)
 	if result then
-		msg.reply({
+		return {
 			success = true,
 			hostnames = result
-		})
-	else
-		msg.reply({
-			success = false,
-			error = "NXDOMAIN"
-		})
+		}
 	end
+	return {
+		success = false,
+		error = "NXDOMAIN"
+	}
 end)
 
 quackdnsd.start()

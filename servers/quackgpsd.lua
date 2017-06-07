@@ -1,20 +1,28 @@
 local quackgpsd = quackserver.create("QuackGPSd", "0.1")
 
-quackgpsd.handleCommand("track", function(msg)
+quackgpsd.handleEncrypted("track", function(msg, sender)
 	term.setTextColor(colors.cyan)
-	print("Request to track " .. msg.data.player .. " from " .. msg.sender)
-	local x, y, z = quackgps.track(msg.data.player)
-	msg.reply({success = true, x=x, y=y, z=z}, true)
+	print("Request to track " .. data.player .. " from " .. sender)
+	local x, y, z = quackgps.track(data.player)
+	return {
+		success = true,
+		x = x,
+		y = y,
+		z = z
+	}
 end)
 
-quackgpsd.handleCommand("track_all", function(msg)
+quackgpsd.handleEncrypted("track_all", function()
 	term.setTextColor(colors.cyan)
 	print("Request to track all players in dimension")
-	msg.reply({success = true, players = quackgps.trackAll()}, true)
+	return {
+		success = true,
+		players = quackgps.trackAll()
+	}
 end)
 
-quackgpsd.handleCommand("list", function(msg)
-	msg.reply(quackgps.getNames(true))
+quackgpsd.handle("list", function()
+	return quackgps.getNames(true)
 end)
 
 quackgpsd.start()

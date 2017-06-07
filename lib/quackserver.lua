@@ -43,10 +43,20 @@ function create(name, version)
 		version = version,
 		commands = {}
 	}
-	server.handleCommand = function(name, func)
+	server.handleRaw = function(name, func)
 		server.commands[name] = func
 	end
-	server.removeCommand = function(name)
+	server.handle = function(name, func)
+		server.commands[name] = function(msg)
+			msg.reply(func(msg.data, msg.sender))
+		end
+	end
+	server.handleEncrypted = function(name, func)
+		server.commands[name] = function(msg)
+			msg.reply(func(msg.data, msg.sender), true)
+		end
+	end
+	server.removeHandler = function(name)
 		server.commands[name] = nil
 	end
 	server.start = function()
