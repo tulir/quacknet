@@ -24,7 +24,7 @@ local function debug(message)
 end
 
 function version()
-	return "Quacknet 1.0"
+	return "Quacknet 1.1"
 end
 
 local function checksum(message, secret, timestamp)
