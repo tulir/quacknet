@@ -47,7 +47,7 @@ function resolveCached(name)
 		if cached.expired() then
 			cache[name] = nil
 		else
-			return cached.id
+			return cached.id, (cache.expiry - time.mcUnix())
 		end
 	end
 	return nil
@@ -76,14 +76,16 @@ function resolveServer(name)
 	return nil
 end
 
-function resolve(name)
+function resolve(name, skipcache)
 	local localResult = resolveLocal(name)
 	if localResult ~= nil then
 		return localResult, "LOCAL"
 	end
-	local cacheResult = resolveCached(name)
-	if cacheResult ~= nil then
-		return cacheResult, "CACHE"
+	if not skipcache then
+		local cacheResult, expiresIn = resolveCached(name)
+		if cacheResult ~= nil then
+			return cacheResult, "CACHE (" .. expiresIn .. "s)"
+		end
 	end
 	local serverResult = resolveServer(name)
 	if serverResult ~= nil then
@@ -139,14 +141,16 @@ function reverseServer(id)
 	return nil
 end
 
-function reverse(id)
+function reverse(id, skipcache)
 	local localResult = reverseLocal(id)
 	if #localResult > 0 then
 		return localResult, "LOCAL"
 	end
-	local cacheResult = reverseCached(id)
-	if #cacheResult > 0 then
-		return cacheResult, "CACHE"
+	if not skipcache then
+		local cacheResult = reverseCached(id)
+		if #cacheResult > 0 then
+			return cacheResult, "CACHE"
+		end
 	end
 	local serverResult = reverseServer(id)
 	if #serverResult > 0 then
