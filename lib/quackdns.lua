@@ -11,7 +11,7 @@ end
 function load()
 	file = fs.open("/hosts", "r")
 	if not file then
-		keys = {}
+		hosts = {}
 		return
 	end
 	hosts = textutils.unserialize(file.readAll())
