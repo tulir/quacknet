@@ -70,7 +70,7 @@ function resolve(name)
 	if localResult ~= nil then
 		return localResult
 	end
-	local cacheResult = resolveCache(name)
+	local cacheResult = resolveCached(name)
 	if cacheResult ~= nil then
 		return cacheResult
 	end
@@ -125,7 +125,7 @@ function reverse(id)
 	if #localResult > 0 then
 		return localResult
 	end
-	local cacheResult = reverseCache(id)
+	local cacheResult = reverseCached(id)
 	if #cacheResult > 0 then
 		return cacheResult
 	end
