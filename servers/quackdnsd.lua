@@ -7,7 +7,7 @@ quackdnsd.handle("resolve", function(data)
 			success = true,
 			id = result,
 			ttl = 3600
-		})
+		}
 	end
 	return {
 		success = false,
