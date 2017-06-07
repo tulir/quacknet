@@ -5,6 +5,7 @@ os.loadAPI("/lib/strings")
 os.loadAPI("/lib/tables")
 os.loadAPI("/lib/maths")
 os.loadAPI("/lib/random")
+os.loadAPI("/lib/time")
 os.loadAPI("/lib/quackkeys")
 os.loadAPI("/lib/quackserver")
 
@@ -25,21 +26,17 @@ function version()
 	return "Quacknet 1.0"
 end
 
-local function mapTime()
-	return (os.time() * 1000 + 18000) % 24000 + os.day() * 24000
-end
-
 local function checksum(message, secret, time)
 	return sha1.hmac(secret .. time, message)
 end
 
 local function compile(message, secret)
-	time = mapTime()
+	time = time.mcUnix()
 	return checksum(message, secret, time) .. ";" .. time .. ";" .. message
 end
 
 local function compileEncrypted(message, secret)
-	return "c;" .. mapTime() .. ";" .. base64.encode(aes.encrypt(secret, "quacknet-encrypted:" .. message))
+	return "c;" .. time.mcUnix() .. ";" .. base64.encode(aes.encrypt(secret, "quacknet-encrypted:" .. message))
 end
 
 function request(target, data, encrypt)
@@ -151,7 +148,7 @@ function handleReceived(sender, message, computerID)
 	local hash, time
 	hash, time, message = table.unpack(string.split(message, ";"))
 	time = tonumber(time)
-	now = mapTime()
+	now = time.mcUnix()
 	if now - 3 > time or time > now + 3 then
 		return sender, message, "Message too old"
 	elseif hash == "c" then
