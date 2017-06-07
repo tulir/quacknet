@@ -44,6 +44,21 @@ function request(target, data, encrypt)
 	if type(data) == "table" then
 		data = textutils.serialize(data)
 	end
+	if type(target) ~= "number" then
+		target = quackdns.resolve(target)
+		if target == nil then
+			return {
+				success = false,
+				error = "Could not resolve hostname " .. target .. "."
+			}
+		end
+	end
+	if type(target) ~= "number" then
+		return {
+			success = false,
+			error = target .. " invalid target type."
+		}
+	end
 	local hostData = quackkeys.get(target)
 	if not hostData then
 		return {
