@@ -74,7 +74,17 @@ end
 while true do
 	local hour = math.floor(os.time())
 	local minute = math.floor((os.time() % 1) * 60)
-	local reply = quacknet.request(39, {command="track_all"})
+	local reply
+	if quackgps then
+		reply = {
+			data = {
+				success = true,
+				players = quackgps.trackAll()
+			}
+		}
+	else
+		reply = quacknet.request(39, {command="track_all"})
+	end
 
 	term.setBackgroundColor(colors.black)
 	term.clear()
