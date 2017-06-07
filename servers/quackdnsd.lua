@@ -5,7 +5,8 @@ quackdnsd.handle("resolve", function(data)
 	if result then
 		return {
 			success = true,
-			id = result
+			id = result,
+			ttl = 3600
 		})
 	end
 	return {
@@ -19,7 +20,8 @@ quackdnsd.handle("reverse", function(data)
 	if result then
 		return {
 			success = true,
-			hostnames = result
+			hostnames = result,
+			ttl = 3600
 		}
 	end
 	return {
