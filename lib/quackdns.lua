@@ -1,5 +1,5 @@
-local hosts = {}
-local cache = {}
+hosts = {}
+cache = {}
 SERVER = nil
 
 function save()
