@@ -87,7 +87,7 @@ function reverseLocal(id)
 	return names
 end
 
-function resolveCached(id)
+function reverseCached(id)
 	local names = {}
 	for hostname, data in pairs(cache) do
 		if data.expired() then
