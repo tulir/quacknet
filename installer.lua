@@ -3,7 +3,7 @@ local function install(name, toFile)
 		toFile = name
 	end
 	http.request("https://raw.githubusercontent.com/tulir/quacknet/master/" .. name .. ".lua")
-	local _, response = os.pullEvent("http_success")
+	local _, _, response = os.pullEvent("http_success")
 	local file = fs.open(toFile, "w")
 	if response and file then
 		file.write(response.readAll())
