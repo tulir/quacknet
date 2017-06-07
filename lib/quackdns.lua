@@ -79,7 +79,7 @@ end
 
 function reverseLocal(id)
 	local names = {}
-	for hostname, hostid in pairs(hosts)
+	for hostname, hostid in pairs(hosts) do
 		if hostid == id then
 			names[#names+1] = hostname
 		end
@@ -89,7 +89,7 @@ end
 
 function resolveCached(id)
 	local names = {}
-	for hostname, data in pairs(cache)
+	for hostname, data in pairs(cache) do
 		if data.expired() then
 			cache[name] = nil
 		elseif data.id == id then
