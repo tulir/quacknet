@@ -21,6 +21,15 @@ function load()
 	end
 end
 
+function addHost(name, id)
+	hosts[name] = id
+	save()
+end
+
+function removeHost(name)
+	hosts[name] = nil
+end
+
 function resolveLocal(name)
 	return hosts[name]
 end
