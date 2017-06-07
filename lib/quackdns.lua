@@ -79,13 +79,17 @@ end
 function resolve(name)
 	local localResult = resolveLocal(name)
 	if localResult ~= nil then
-		return localResult
+		return localResult, "LOCAL"
 	end
 	local cacheResult = resolveCached(name)
 	if cacheResult ~= nil then
-		return cacheResult
+		return cacheResult, "CACHE"
 	end
-	return resolveServer(name)
+	local serverResult = resolveServer(name)
+	if serverResult ~= nil then
+		return serverResult, "SERVER"
+	end
+	return nil, nil
 end
 
 function reverseLocal(id)
@@ -138,11 +142,15 @@ end
 function reverse(id)
 	local localResult = reverseLocal(id)
 	if #localResult > 0 then
-		return localResult
+		return localResult, "LOCAL"
 	end
 	local cacheResult = reverseCached(id)
 	if #cacheResult > 0 then
-		return cacheResult
+		return cacheResult, "CACHE"
 	end
-	return reverseServer(id)
+	local serverResult = reverseServer(id)
+	if #serverResult > 0 then
+		return serverResult, "SERVER"
+	end
+	return nil, nil
 end
