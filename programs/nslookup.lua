@@ -7,7 +7,7 @@ end
 local hostname = args[1]
 local id = tonumber(hostname)
 if id ~= nil then
-	local result, source = quackdns.reverse(hostname)
+	local result, source = quackdns.reverse(id)
 	if result ~= nil then
 		print("ID:     ", id)
 		print("Results:")
