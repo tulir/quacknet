@@ -6,6 +6,7 @@ os.loadAPI("/lib/tables")
 os.loadAPI("/lib/maths")
 os.loadAPI("/lib/random")
 os.loadAPI("/lib/quackkeys")
+os.loadAPI("/lib/quackserver")
 
 REQUEST_REPLY_TIMEOUT = 5
 DEBUG = false
