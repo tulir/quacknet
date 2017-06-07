@@ -64,7 +64,7 @@ function resolveServer(name)
 	})
 	if reply.data and reply.data.success then
 		local cacheEntry = {
-			expiry = time.mcUnix() + reply.ttl,
+			expiry = time.mcUnix() + reply.data.ttl,
 			id = reply.data.id
 		}
 		cacheEntry.expired = function()
