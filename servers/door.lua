@@ -12,7 +12,7 @@ while true do
 			if command.text == "open" then
 				rs.setOutput("left", false)
 				command.reply("Opening door...")
-			elseif message == "close" then
+			elseif command.text == "close" then
 				rs.setOutput("left", true)
 				command.reply("Closing door...")
 			else
