@@ -161,7 +161,7 @@ function handleReceived(sender, message, computerID)
 	end
 
 	local hostData = quackkeys.get(sender)
-	local hash, time
+	local hash, sendtime
 	hash, sendtime, message = table.unpack(string.split(message, ";"))
 	sendtime = tonumber(sendtime)
 	now = time.mcUnix()
