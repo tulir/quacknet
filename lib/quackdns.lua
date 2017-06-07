@@ -23,11 +23,18 @@ end
 
 function addHost(name, id)
 	hosts[name] = id
+	if name == "dns" then
+		SERVER = id
+	end
 	save()
 end
 
 function removeHost(name)
 	hosts[name] = nil
+	if name == "dns" then
+		SERVER = nil
+	end
+	save()
 end
 
 function resolveLocal(name)
