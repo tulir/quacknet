@@ -27,7 +27,7 @@ function addHost(name, id)
 end
 
 function removeHost(name)
-	hosts[name] = nil
+	hosts[name] = nil
 end
 
 function resolveLocal(name)
