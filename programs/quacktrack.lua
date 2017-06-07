@@ -19,10 +19,10 @@ if quackgps then
 		print(string.format("%s is at %.1f, %.1f, %.1f", player, x, y, z))
 	end
 else
-	local reply = quacknet.request(39, textutils.serialize({
+	local reply = quacknet.request(39, {
 		command = "track",
 		player = player
-	}))
+	})
 
 	if reply.data and reply.data.success then
 		local pos = reply.data
