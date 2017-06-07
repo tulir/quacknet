@@ -70,7 +70,7 @@ function resolveServer(name)
 		cacheEntry.expired = function()
 			return cacheEntry.expiry > time.mcUnix()
 		end
-		cached[name] = cacheEntry
+		cache[name] = cacheEntry
 		return reply.data.id
 	end
 	return nil
@@ -132,7 +132,7 @@ function reverseServer(id)
 			cacheEntry.expired = function()
 				return cacheEntry.expiry > time.mcUnix()
 			end
-			cached[hostname] = cacheEntry
+			cache[hostname] = cacheEntry
 		end
 		return reply.data.hostnames
 	end
