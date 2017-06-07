@@ -16,7 +16,7 @@ local function loop(server)
 	if validate(msg) then
 		local command = server.commands[msg.data.command]
 		if command ~= nil then
-			command(msg.data)
+			command(msg)
 		else
 			term.setTextColor(colors.orange)
 			print("Unknown command " .. msg.data.command .. " from " .. sender)
