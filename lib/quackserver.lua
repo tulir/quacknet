@@ -45,4 +45,6 @@ function create(name, version)
 			end
 		end
 	end
+
+	return server
 end
