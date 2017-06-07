@@ -88,6 +88,7 @@ autorun("postinit")
 
 shell.setPath(shell.path() .. ":/programs")
 quackkeys.load()
+quackdns.load()
 quacknet.open(modem)
 term.clear()
 term.setCursorPos(1, 1)
