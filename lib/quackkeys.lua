@@ -38,7 +38,7 @@ local function randomSeed()
 	return math.random(2147483647)
 end
 
-function handshakeA()
+function handshakeA(noverify)
 	local randSeed = randomSeed()
 	math.randomseed(randSeed)
 	local sendKey = random.string(32)
@@ -49,16 +49,22 @@ function handshakeA()
 		recvKey = recvKey
 	}
 	print("Handshake secret: " .. ("%X"):format(randSeed))
+	if noverify then
+		save()
+		print("Link with " .. computerID .. " formed but not verified")
+		return
+	end
 	local msg = quacknet.listen(computerID)
 	if msg.text == "ping" then
 		msg.reply("pong")
 		print("Link with " .. computerID .. " formed successfully")
+		save()
 	else
 		print("Link forming failed: Unexpected handshake message: " .. message)
 	end
 end
 
-function handshakeB()
+function handshakeB(noverify)
 	local computerID = tonumber(ask("A-end ID"))
 	local randSeed = tonumber(ask("Handshake secret"), 16)
 	math.randomseed(randSeed)
@@ -68,11 +74,17 @@ function handshakeB()
 		sendKey = sendKey,
 		recvKey = recvKey
 	}
+	if noverify then
+		save()
+		print("Link with " .. computerID .. " formed but not verified")
+		return
+	end
 	local reply = quacknet.request(computerID, "ping")
 	if not reply.success then
 		print("Link forming failed: " .. reply.error)
 	elseif reply.text == "pong" then
 		print("Link with " .. computerID .. " formed successfully")
+		save()
 	else
 		print("Link forming failed: Unexpected handshake message: " .. reply.text)
 	end
