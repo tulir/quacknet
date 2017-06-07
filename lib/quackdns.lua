@@ -47,6 +47,10 @@ function resolveCached(name)
 end
 
 function resolveServer(name)
+	if not SERVER then
+		return nil
+	end
+
 	local reply = quacknet.request(SERVER, {
 		command = "resolve",
 		hostname = name
@@ -100,6 +104,10 @@ function reverseCached(id)
 end
 
 function reverseServer(id)
+	if not SERVER then
+		return nil
+	end
+
 	local reply = quacknet.request(SERVER, {
 		command = "reverse",
 		id = id
