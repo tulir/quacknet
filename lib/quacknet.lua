@@ -27,13 +27,13 @@ function version()
 	return "Quacknet 1.0"
 end
 
-local function checksum(message, secret, time)
-	return sha1.hmac(secret .. time, message)
+local function checksum(message, secret, timestamp)
+	return sha1.hmac(secret .. timestamp, message)
 end
 
 local function compile(message, secret)
-	time = time.mcUnix()
-	return checksum(message, secret, time) .. ";" .. time .. ";" .. message
+	now = time.mcUnix()
+	return checksum(message, secret, now) .. ";" .. now .. ";" .. message
 end
 
 local function compileEncrypted(message, secret)
