@@ -37,6 +37,8 @@ function createWirelessTerm(receiver)
 		conn.handleEncrypted("exit", function(data)
 			conn.stop()
 		end)
+		conn.welcome = false
+		conn.printOutput = false
 		return conn
 	end
 	term.write = function(text)
