@@ -20,6 +20,7 @@ if not reply.data or not reply.data.success then
 end
 
 local function clear()
+	term.clear()
 	term.setCursorPos(1, 1)
 	oldFg = term.getTextColor()
 	oldBg = term.getBackgroundColor()
