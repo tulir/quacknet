@@ -38,8 +38,10 @@ local function loop(server)
 end
 
 local function start(server)
-	term.setTextColor(colors.yellow)
-	print(server.name .. " " .. server.version .. " started")
+	if server.welcome then
+		term.setTextColor(colors.yellow)
+		print(server.name .. " " .. server.version .. " started")
+	end
 
 	while true do
 		if server.stopped then
@@ -56,6 +58,7 @@ function create(name, version)
 		commands = {},
 		ids = {},
 		stopped = false,
+		welcome = false
 	}
 	server.stop = function()
 		server.stopped = true

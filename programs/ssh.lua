@@ -106,6 +106,8 @@ conn.handleEncrypted("exit", function(data)
 	conn.stop()
 end)
 
+conn.welcome = false
+
 clear()
 
 parallel.waitForAny(
