@@ -73,6 +73,8 @@ function handshakeB(noverify, computerID, randSeed)
 	end
 	if randSeed == nil then
 		randSeed = tonumber(ask("Handshake secret"), 16)
+	elseif type(randSeed) == "string" then
+		randSeed = tonumber(randSeed, 16)
 	end
 	math.randomseed(randSeed)
 	local recvKey = random.string(32)
