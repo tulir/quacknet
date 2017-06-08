@@ -1,5 +1,8 @@
 local quackdnsd = quackserver.create("QuackDNSd", "0.1")
 
+quackgpsd.registerServiceID("dns")
+quackgpsd.registerDefaultServiceID()
+
 quackdnsd.handle("resolve", function(data)
 	local result = quackdns.resolveLocal(data.hostname)
 	if result then

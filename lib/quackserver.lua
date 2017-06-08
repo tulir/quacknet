@@ -8,12 +8,24 @@ local function validate(msg)
 		})
 		return false
 	end
+	if not msg.data.server then
+		msg.data.server = "default"
+	end
 	return true
+end
+
+local function checkServer(server, msg)
+	for _, id in ipairs(server.ids) do
+		if msg.data.server == id then
+			return true
+		end
+	end
+	return false
 end
 
 local function loop(server)
 	local msg = quacknet.listen()
-	if validate(msg) then
+	if validate(msg) and checkServer(server, msg) then
 		local command = server.commands[msg.data.command]
 		if command ~= nil then
 			command(msg)
@@ -41,7 +53,8 @@ function create(name, version)
 	local server = {
 		name = name,
 		version = version,
-		commands = {}
+		commands = {},
+		ids = {},
 	}
 	server.handleRaw = function(name, func)
 		server.commands[name] = func
@@ -55,6 +68,12 @@ function create(name, version)
 		server.commands[name] = function(msg)
 			msg.reply(func(msg.data, msg.sender), true)
 		end
+	end
+	server.registerServiceID = function(id)
+		server.ids[#server.ids+1] = id
+	end
+	server.registerDefaultServiceID = function()
+		server.ids[#server.ids+1] = "default"
 	end
 	server.removeHandler = function(name)
 		server.commands[name] = nil
