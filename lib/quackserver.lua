@@ -66,9 +66,9 @@ function create(name, version)
 	end
 	server.handleEncrypted = function(name, func)
 		server.commands[name:lower()] = function(msg)
-			local reply = func(msg.data, msg.sender), true
+			local reply = func(msg.data, msg.sender)
 			if reply ~= nil then
-				msg.reply(reply)
+				msg.reply(reply, true)
 			end
 		end
 	end
