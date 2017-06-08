@@ -31,7 +31,6 @@ local function clear()
 	term.setCursorPos(1, 2)
 end
 
-clear()
 local conn = quackserver.create("QuackSSH client", "0.1")
 conn.registerServiceID("ssh-client")
 
@@ -106,6 +105,8 @@ end)
 conn.handleEncrypted("exit", function(data)
 	conn.stop()
 end)
+
+clear()
 
 parallel.waitForAny(
 	function()
