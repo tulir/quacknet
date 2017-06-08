@@ -60,11 +60,15 @@ conn.handleEncrypted("getCursorPos", function()
 end)
 
 conn.handleEncrypted("setCursorPos", function(data)
-	term.setCursorPos(data.x, data.y + 1)
+	if type(data) == "table" then
+		term.setCursorPos(data.x, data.y + 1)
+	end
 end)
 
 conn.handleEncrypted("setCursorBlink", function(data)
-	term.setCursorBlink(data.value)
+	if type(data) == "table" then
+		term.setCursorBlink(data.value)
+	end
 end)
 
 conn.handleEncrypted("isColor", function()
@@ -82,11 +86,15 @@ conn.handleEncrypted("getSize", function()
 end)
 
 conn.handleEncrypted("scroll", function(value)
-	term.scroll(data.value)
+	if type(data) == "table" then
+		term.scroll(data.value)
+	end
 end)
 
 conn.handleEncrypted("setTextColor", function(data)
-	term.setTextColor(data.value)
+	if type(data) == "table" then
+		term.setTextColor(data.value)
+	end
 end)
 
 conn.handleEncrypted("getTextColor", function(data)
@@ -96,7 +104,9 @@ conn.handleEncrypted("getTextColor", function(data)
 end)
 
 conn.handleEncrypted("setBackgroundColor", function(data)
-	term.setBackgroundColor(data.value)
+	if type(data) == "table" then
+		term.setBackgroundColor(data.value)
+	end
 end)
 
 conn.handleEncrypted("getBackgroundColor", function(data)
