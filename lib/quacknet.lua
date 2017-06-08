@@ -13,6 +13,7 @@ os.loadAPI("/lib/quackgps")
 
 local REQUEST_REPLY_TIMEOUT = 5
 local DEBUG = false
+local NOENCRYPTION = false
 
 function setRequestReplyTimeout(newTimeout)
 	REQUEST_REPLY_TIMEOUT = newTimeout
@@ -21,6 +22,10 @@ end
 function toggleDebug()
 	DEBUG = not DEBUG
 	return DEBUG
+end
+
+function disableEncryption()
+	NOENCRYPTION = true
 end
 
 local function debug(message)
@@ -47,6 +52,9 @@ local function compile(message, secret)
 end
 
 local function compileEncrypted(message, secret)
+	if NOENCRYPTION then
+		return compile(message, secret)
+	end
 	return "c;" .. time.mcUnix() .. ";" .. base64.encode(aes.encrypt(secret, "quacknet-encrypted:" .. message))
 end
 
