@@ -35,7 +35,9 @@ local conn = quackserver.create("QuackSSH client", "0.1")
 conn.registerServiceID("ssh-client")
 
 conn.handleEncrypted("write", function(data)
-	term.write(data.value)
+	if type(data) == "table" then
+		term.write(data.value)
+	end
 end)
 
 conn.handleEncrypted("blit", function(data)
