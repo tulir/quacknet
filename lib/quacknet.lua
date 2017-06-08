@@ -50,7 +50,7 @@ local function compileEncrypted(message, secret)
 	return "c;" .. time.mcUnix() .. ";" .. base64.encode(aes.encrypt(secret, "quacknet-encrypted:" .. message))
 end
 
-function request(target, data, encrypt)
+function send(target, data, encrypt)
 	if type(data) == "table" then
 		data = textutils.serialize(data)
 	end
@@ -85,6 +85,10 @@ function request(target, data, encrypt)
 	else
 		rednet.send(target, compile(data, hostData.sendKey))
 	end
+end
+
+function request(target, data, encrypt)
+	send(target, data, encrypt)
 
 	timer = os.startTimer(REQUEST_REPLY_TIMEOUT)
 	while true do
