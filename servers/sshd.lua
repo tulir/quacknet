@@ -75,6 +75,7 @@ function createWirelessTerm(receiver)
 		end
 		return false
 	end
+	term.isColour = term.isColor
 	term.getSize = function()
 		local reply = term.request("getSize")
 		if reply.data then
@@ -88,6 +89,7 @@ function createWirelessTerm(receiver)
 	term.setTextColor = function(color)
 		term.send("setTextColor", color)
 	end
+	term.setTextColour = term.setTextColor
 	term.getTextColor = function()
 		local reply = term.request("getTextColor")
 		if reply.data then
@@ -95,9 +97,11 @@ function createWirelessTerm(receiver)
 		end
 		return colors.white
 	end
+	term.setTextColour = term.getTextColor
 	term.setBackgroundColor = function(color)
 		term.send("setBackgroundColor", color)
 	end
+	term.setBackgroundColour = term.setBackgroundColor
 	term.getBackgroundColor = function()
 		local reply = term.request("getBackgroundColor")
 		if reply.data then
@@ -105,6 +109,7 @@ function createWirelessTerm(receiver)
 		end
 		return colors.black
 	end
+	term.getBackgroundColour = term.getBackgroundColor
 	return term
 end
 
