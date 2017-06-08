@@ -125,7 +125,7 @@ parallel.waitForAny(
 				command = "raw-event",
 				service = "sshd-connection",
 				params = data
-			})
+			}, true)
 		end
 	end,
 	conn.start)
