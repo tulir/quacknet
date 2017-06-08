@@ -110,7 +110,7 @@ function createWirelessTerm(receiver)
 		end
 		return colors.white
 	end
-	term.setTextColour = term.getTextColor
+	term.getTextColour = term.getTextColor
 	term.setBackgroundColor = function(color)
 		nativeTerm.setBackgroundColor(color)
 		term.send("setBackgroundColor", color)
@@ -134,6 +134,7 @@ server.handleRaw("connect", function(msg)
 	local wTerm = createWirelessTerm(msg.sender)
 	local conn = wTerm.createListener()
 	term.clear()
+	term.setCursorPos(1, 1)
 	term.redirect(wTerm)
 	msg.reply({success = true}, true)
 
