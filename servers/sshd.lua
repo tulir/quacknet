@@ -1,4 +1,5 @@
 function createWirelessTerm(receiver)
+	local nativeTerm = term.native()
 	local term = {
 		send = function(command, data)
 			if data == nil then
@@ -37,9 +38,11 @@ function createWirelessTerm(receiver)
 		return conn
 	end
 	term.write = function(text)
+		nativeTerm.write(text)
 		term.send("write", text)
 	end
 	term.blit = function(text, fg, bg)
+		nativeTerm.blit(text, fg, bg)
 		term.send("blit", {
 			text = text,
 			fg = fg,
@@ -47,9 +50,11 @@ function createWirelessTerm(receiver)
 		})
 	end
 	term.clear = function()
+		nativeTerm.clear()
 		term.send("clear")
 	end
 	term.clearLine = function()
+		nativeTerm.clearLine()
 		term.send("clearLine")
 	end
 	term.getCursorPos = function()
@@ -60,12 +65,14 @@ function createWirelessTerm(receiver)
 		return 1, 1
 	end
 	term.setCursorPos = function(x, y)
+		nativeTerm.setCursorPos(x, y)
 		term.send("setCursorPos", {
 			x = x,
 			y = y
 		})
 	end
 	term.setCursorBlink = function(blink)
+		nativeTerm.setCursorBlink(blink)
 		term.send("setCursorBlink", blink)
 	end
 	term.isColor = function()
@@ -84,9 +91,11 @@ function createWirelessTerm(receiver)
 		return 26, 19
 	end
 	term.scroll = function(lines)
+		nativeTerm.scroll(lines)
 		term.send("scroll", lines)
 	end
 	term.setTextColor = function(color)
+		nativeTerm.setTextColor(color)
 		term.send("setTextColor", color)
 	end
 	term.setTextColour = term.setTextColor
@@ -99,6 +108,7 @@ function createWirelessTerm(receiver)
 	end
 	term.setTextColour = term.getTextColor
 	term.setBackgroundColor = function(color)
+		nativeTerm.setBackgroundColor(color)
 		term.send("setBackgroundColor", color)
 	end
 	term.setBackgroundColour = term.setBackgroundColor
