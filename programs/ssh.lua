@@ -9,12 +9,13 @@ end
 local host = args[1]
 
 local reply = quacknet.request(host, {
-	command = "connect"
-})
+	command = "connect",
+	service = "sshd"
+}, true)
 
 if not reply.data or not reply.data.success then
 	term.setTextColor(colors.orange)
-	print("Conncetion failed!")
+	print("Connection failed!")
 	return
 end
 
@@ -116,5 +117,5 @@ parallel.waitForAny(
 				params = data
 			})
 		end
-	end
+	end,
 	conn.start)

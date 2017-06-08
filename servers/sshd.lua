@@ -1,25 +1,9 @@
-local server = quackserver.create("QuackSSHd", "0.1")
-server.registerServiceID("sshd")
-server.handleRaw("connect", function(msg)
-	local wTerm = createWirelessTerm(sender)
-	local conn = wTerm.createListener()
-	term.redirect(wTerm)
-	msg.reply({success = true})
-
-	parallel.waitForAny(
-		function() shell.run("/rom/programs/shell") end,
-		conn.start)
-
-	server.stop()
-	term.redirect(term.native())
-end)
-
 function createWirelessTerm(receiver)
 	local term = {
 		send = function(command, data)
 			if data == nil then
 				data = {}
-			elseif type(data) ≃ "table" then
+			elseif type(data) ~= "table" then
 				data = {
 					value = data
 				}
@@ -27,11 +11,11 @@ function createWirelessTerm(receiver)
 			data.service = "ssh-client"
 			data.command = command
 			quacknet.send(receiver, data, true)
-		end
+		end,
 		request = function(command, data)
 			if data == nil then
 				data = {}
-			elseif type(data) ≃ "table" then
+			elseif type(data) ~= "table" then
 				data = {
 					value = data
 				}
@@ -122,3 +106,21 @@ function createWirelessTerm(receiver)
 		return colors.black
 	end
 end
+
+local server = quackserver.create("QuackSSHd", "0.1")
+server.registerServiceID("sshd")
+server.handleRaw("connect", function(msg)
+	print("Received connection from " .. msg.sender)
+	local wTerm = createWirelessTerm(sender)
+	local conn = wTerm.createListener()
+	term.redirect(wTerm)
+	msg.reply({success = true}, true)
+
+	parallel.waitForAny(
+		function() shell.run("/rom/programs/shell") end,
+		conn.start)
+	server.stop()
+	term.redirect(term.native())
+	print("Connection from " .. msg.sender .. " closed.")
+end)
+server.start()
