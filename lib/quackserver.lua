@@ -62,8 +62,8 @@ function create(name, version)
 		commands = {},
 		ids = {},
 		stopped = false,
-		printOutput = false,
-		welcome = false
+		printOutput = true,
+		welcome = true
 	}
 	server.stop = function()
 		server.stopped = true
