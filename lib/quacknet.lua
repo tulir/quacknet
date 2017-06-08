@@ -11,8 +11,17 @@ os.loadAPI("/lib/quackdns")
 os.loadAPI("/lib/quackserver")
 os.loadAPI("/lib/quackgps")
 
-REQUEST_REPLY_TIMEOUT = 5
-DEBUG = false
+local REQUEST_REPLY_TIMEOUT = 5
+local DEBUG = false
+
+function setRequestReplyTimeout(newTimeout)
+	REQUEST_REPLY_TIMEOUT = newTimeout
+end
+
+function toggleDebug()
+	DEBUG = not DEBUG
+	return DEBUG
+end
 
 local function debug(message)
 	if not DEBUG then
