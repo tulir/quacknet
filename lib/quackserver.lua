@@ -1,7 +1,7 @@
-local function validate(msg)
+local function validate(msg, printOutput)
 	if not msg.data or type(msg.data) ~= "table" or type(msg.data.command) ~= "string" then
 		term.setTextColor(colors.orange)
-		if server.printOutput then
+		if printOutput then
 			print("Invalid request from " .. msg.sender)
 		end
 		return false
@@ -24,7 +24,7 @@ end
 
 local function loop(server)
 	local msg = quacknet.listen()
-	if validate(msg) and checkServer(server, msg) then
+	if validate(msg, server.printOutput) and checkServer(server, msg) then
 		local command = server.commands[msg.data.command]
 		if command ~= nil then
 			command(msg)
