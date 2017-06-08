@@ -7,6 +7,7 @@ local function validate(msg)
 	if not msg.data.service then
 		msg.data.service = "default"
 	end
+	msg.data.command = msg.data.command:lower()
 	return true
 end
 
@@ -53,10 +54,10 @@ function create(name, version)
 		ids = {},
 	}
 	server.handleRaw = function(name, func)
-		server.commands[name] = func
+		server.commands[name:lower()] = func
 	end
 	server.handle = function(name, func)
-		server.commands[name] = function(msg)
+		server.commands[name:lower()] = function(msg)
 			local reply = func(msg.data, msg.sender)
 			if reply ~= nil then
 				msg.reply(reply)
@@ -64,7 +65,7 @@ function create(name, version)
 		end
 	end
 	server.handleEncrypted = function(name, func)
-		server.commands[name] = function(msg)
+		server.commands[name:lower()] = function(msg)
 			local reply = func(msg.data, msg.sender), true
 			if reply ~= nil then
 				msg.reply(reply)
