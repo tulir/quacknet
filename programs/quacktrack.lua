@@ -14,7 +14,12 @@ if quackgps.hasAccess() then
 		term.setTextColor(colors.orange)
 		print("Player not in this dimension.")
 	else
-		local x, y, z = quackgps.track(player)
+		local x, y, z, err = quackgps.track(player)
+		if err ~= nil then
+			term.setTextColor(colors.red)
+			print("Failed to track player: ", err)
+			return
+		end
 		term.setTextColor(colors.green)
 		print(string.format("%s is at %.1f, %.1f, %.1f", player, x, y, z))
 	end

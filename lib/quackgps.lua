@@ -23,11 +23,13 @@ local function getSatelliteData(id)
 end
 
 local function getSatelliteOutput()
-	return {
-		getSatelliteData("sat1.gps"),
-		getSatelliteData("sat2.gps"),
-		getSatelliteData("sat3.gps")
-	}
+	local sat1 = getSatelliteData("sat1.gps")
+	local sat2 = getSatelliteData("sat2.gps")
+	local sat3 = getSatelliteData("sat3.gps")
+	if sat1 == nil or sat2 == nil or sat3 == nil then
+		return nil
+	end
+	return { sat1, sat2, sat3 }
 end
 
 local function calculate(satellites)
@@ -100,15 +102,26 @@ function getPlayersInDimension()
 end
 
 function isInDimension(player)
-	return contains(getPlayersInDimension(), player)
+	local players = getPlayersInDimension()
+	if players == nil then
+		return nil
+	end
+	return contains(players, player)
 end
 
 function isOnline(player)
-	return contains(getPlayers(), player)
+	local players = getPlayers()
+	if players == nil then
+		return nil
+	end
+	return contains(players, player)
 end
 
 function trackAll()
 	local rawdata = getSatelliteOutput()
+	if rawdata == nil then
+		return nil, "Satellites unavailable"
+	end
 	local data = {}
 	for index, entry in ipairs(rawdata) do
 		for _, playerEntry in ipairs(entry.data) do
@@ -132,6 +145,9 @@ end
 
 function track(player)
 	local rawdata = getSatelliteOutput()
+	if rawdata == nil then
+		return nil, nil, nil, "Satellites unavailable"
+	end
 	local data = {}
 	for index, entry in ipairs(rawdata) do
 		data[index] = {}
@@ -146,7 +162,7 @@ function track(player)
 			end
 		end
 		if not found then
-			return nil, nil, nil
+			return nil, nil, nil, "Player not found"
 		end
 	end
 
