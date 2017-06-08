@@ -38,12 +38,15 @@ local function randomSeed()
 	return math.random(2147483647)
 end
 
-function handshakeA(noverify)
+function handshakeA(noverify, computerID)
 	local randSeed = randomSeed()
 	math.randomseed(randSeed)
 	local sendKey = random.string(32)
 	local recvKey = random.string(32)
-	local computerID = tonumber(ask("B-end ID"))
+	randomSeed()
+	if computerID == nil then
+		computerID = tonumber(ask("B-end ID"))
+	end
 	keys[computerID] = {
 		sendKey = sendKey,
 		recvKey = recvKey
@@ -64,12 +67,17 @@ function handshakeA(noverify)
 	end
 end
 
-function handshakeB(noverify)
-	local computerID = tonumber(ask("A-end ID"))
-	local randSeed = tonumber(ask("Handshake secret"), 16)
+function handshakeB(noverify, computerID, randSeed)
+	if computerID == nil then
+		computerID = tonumber(ask("A-end ID"))
+	end
+	if randSeed == nil then
+		randSeed = tonumber(ask("Handshake secret"), 16)
+	end
 	math.randomseed(randSeed)
 	local recvKey = random.string(32)
 	local sendKey = random.string(32)
+	randomSeed()
 	keys[computerID] = {
 		sendKey = sendKey,
 		recvKey = recvKey
