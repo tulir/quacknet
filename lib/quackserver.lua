@@ -4,15 +4,15 @@ local function validate(msg)
 		print("Invalid request from " .. msg.sender)
 		return false
 	end
-	if not msg.data.server then
-		msg.data.server = "default"
+	if not msg.data.service then
+		msg.data.service = "default"
 	end
 	return true
 end
 
 local function checkServer(server, msg)
 	for _, id in ipairs(server.ids) do
-		if msg.data.server == id then
+		if msg.data.service == id then
 			return true
 		end
 	end
@@ -57,12 +57,18 @@ function create(name, version)
 	end
 	server.handle = function(name, func)
 		server.commands[name] = function(msg)
-			msg.reply(func(msg.data, msg.sender))
+			local reply = func(msg.data, msg.sender)
+			if reply ~= nil then
+				msg.reply(reply)
+			end
 		end
 	end
 	server.handleEncrypted = function(name, func)
 		server.commands[name] = function(msg)
-			msg.reply(func(msg.data, msg.sender), true)
+			local reply = func(msg.data, msg.sender), true
+			if reply ~= nil then
+				msg.reply(reply)
+			end
 		end
 	end
 	server.registerServiceID = function(id)
@@ -77,6 +83,12 @@ function create(name, version)
 	server.start = function()
 		start(server)
 	end
+	server.handle("ping", function(data)
+		if data.service ~= "default" then
+			return "pong"
+		end
+		return nil
+	end)
 
 	return server
 end
