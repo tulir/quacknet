@@ -110,7 +110,17 @@ end)
 parallel.waitForAny(
 	function()
 		while true do
-			local data = table.pack(os.pullEventRaw())
+			local data = table.pack(os.pullEventRaw({
+				"char",
+				"key",
+				"key_up",
+				"mouse_click",
+				"mouse_drag",
+				"mouse_scroll",
+				"mouse_up",
+				"paste",
+				"terminate"
+			}))
 			quacknet.request(host, {
 				command = "raw-event",
 				service = "sshd-connection",
