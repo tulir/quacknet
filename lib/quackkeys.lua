@@ -22,6 +22,10 @@ function get(target)
 	return keys[target]
 end
 
+function has(target)
+	return keys[target] ~= nil
+end
+
 local function ask(query)
 	if width < query:len() + ("Enter "):len() + 6 then
 		print("Enter ", query)

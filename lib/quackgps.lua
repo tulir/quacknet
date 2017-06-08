@@ -60,6 +60,26 @@ local function calculate(satellites)
 	return -x + satellites[1].x, -z + 250, -y + satellites[1].y
 end
 
+function hasAccess()
+	local satMain = quackdns.resolve("sat-main.gps")
+	local sat1 = quackdns.resolve("sat1.gps")
+	local sat2 = quackdns.resolve("sat2.gps")
+	local sat3 = quackdns.resolve("sat3.gps")
+	return quackkeys.has(satMain) and quackkeys.has(sat1) and quackkeys.has(sat2) and quackkeys.has(sat3)
+end
+
+local function pingSatellite(id)
+	local reply = quacknet.request(id, {
+		command = "ping",
+		service = "gps-sat"
+	})
+	return reply.data and reply.data.success
+end
+
+function isAvailable()
+	return pingSatellite("sat-main.gps") and pingSatellite("sat1.gps") and pingSatellite("sat2.gps") and pingSatellite("sat3.gps")
+end
+
 function getPlayers(inDimension)
 	if type(inDimension) ~= "boolean" then
 		inDimension = false
