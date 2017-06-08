@@ -6,7 +6,7 @@ if #args < 1 then
 end
 
 local player = args[1]
-if quackgps then
+if quackgps.hasAccess() then
 	if not quackgps.isOnline(player) then
 		term.setTextColor(colors.orange)
 		print("Player not online.")
@@ -19,7 +19,7 @@ if quackgps then
 		print(string.format("%s is at %.1f, %.1f, %.1f", player, x, y, z))
 	end
 else
-	local reply = quacknet.request(39, {
+	local reply = quacknet.request("central.gps", {
 		command = "track",
 		player = player
 	})
