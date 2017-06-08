@@ -7,23 +7,26 @@ local function contains(array, element)
 	return false
 end
 
+local function getSatelliteData(id)
+	local reply = quacknet.request(id, {
+		command = "distances",
+		service = "gps-sat"
+	})
+	if reply.data and reply.data.success then
+		return {
+			posX = reply.data.from.x,
+			posY = reply.data.from.y,
+			data = reply.data.distances
+		}
+	end
+	return nil
+end
+
 local function getSatelliteOutput()
 	return {
-		{
-			posX = 25000,
-			posY = 25000,
-			data = bridge.callRemote("playerSensor_8", "getNearbyPlayers")
-		},
-		{
-			posX = -25000,
-			posY = 25000,
-			data = bridge.callRemote("playerSensor_9", "getNearbyPlayers")
-		},
-		{
-			posX = 0,
-			posY = -30000,
-			data = bridge.callRemote("playerSensor_10", "getNearbyPlayers")
-		}
+		getSatelliteData("sat1.gps"),
+		getSatelliteData("sat2.gps"),
+		getSatelliteData("sat3.gps")
 	}
 end
 
@@ -57,12 +60,23 @@ local function calculate(satellites)
 	return -x + satellites[1].x, -z + 250, -y + satellites[1].y
 end
 
-function getPlayers()
-	return bridge.callRemote("playerSensor_8", "getAllPlayers", false)
+function getPlayers(inDimension)
+	if type(inDimension) ~= "boolean" then
+		inDimension = false
+	end
+	local reply = quacknet.request("sat-main.gps", {
+		command = "names",
+		inDimension = inDimension,
+		service = "gps-sat"
+	})
+	if reply.data and reply.data.success then
+		return reply.data.players
+	end
+	return nil
 end
 
 function getPlayersInDimension()
-	return bridge.callRemote("playerSensor_8", "getAllPlayers", true)
+	return getPlayers(true)
 end
 
 function isInDimension(player)

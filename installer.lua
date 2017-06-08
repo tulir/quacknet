@@ -38,7 +38,7 @@ install("lib/strings")
 install("lib/tables")
 
 install("servers/door")
-install("servers/quackgpsd")
+install("servers/quackgpssat")
 install("servers/quackdnsd")
 
 install("programs/qhandshake")
@@ -50,7 +50,6 @@ install("programs/cat")
 install("programs/activate-autorun")
 install("programs/encrypt")
 install("programs/decrypt")
-fs.delete("programs/playertracker")
 install("programs/quacktrack-ui")
 install("installer", "programs/update-quacknet")
 
