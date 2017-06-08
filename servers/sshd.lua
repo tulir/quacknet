@@ -30,7 +30,9 @@ function createWirelessTerm(receiver)
 		local conn = quackserver.create("QuackSSHd client connection", "0.1")
 		conn.registerServiceID("sshd-connection")
 		conn.handleEncrypted("raw-event", function(data)
-			os.queueEvent(table.unpack(data.params))
+			if type(data.params) == "table" then
+				os.queueEvent(table.unpack(data.params))
+			end
 		end)
 		conn.handleEncrypted("exit", function(data)
 			conn.stop()
