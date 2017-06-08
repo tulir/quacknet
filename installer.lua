@@ -39,6 +39,7 @@ install("lib/tables")
 
 install("servers/door")
 install("servers/quackgpssat")
+install("servers/quackgpsd")
 install("servers/quackdnsd")
 
 install("programs/qhandshake")
