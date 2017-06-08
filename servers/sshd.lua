@@ -54,7 +54,7 @@ function createWirelessTerm(receiver)
 	end
 	term.getCursorPos = function()
 		local reply = term.request("getCursorPos")
-		if reply.data then
+		if type(reply.data) == "table" and type(reply.data.x) == "number" and type(reply.data.y) == "number" then
 			return reply.data.x, reply.data.y
 		end
 		return 1, 1
@@ -78,7 +78,7 @@ function createWirelessTerm(receiver)
 	term.isColour = term.isColor
 	term.getSize = function()
 		local reply = term.request("getSize")
-		if reply.data then
+		if type(reply.data) == "table" and type(reply.data.width) == "number" and type(reply.data.height) == "number" then
 			return reply.data.width, reply.data.height
 		end
 		return 26, 19
@@ -92,7 +92,7 @@ function createWirelessTerm(receiver)
 	term.setTextColour = term.setTextColor
 	term.getTextColor = function()
 		local reply = term.request("getTextColor")
-		if reply.data then
+		if type(reply.data) == "number" then
 			return reply.data.value
 		end
 		return colors.white
@@ -104,7 +104,7 @@ function createWirelessTerm(receiver)
 	term.setBackgroundColour = term.setBackgroundColor
 	term.getBackgroundColor = function()
 		local reply = term.request("getBackgroundColor")
-		if reply.data then
+		if type(reply.data) == "number" then
 			return reply.data.value
 		end
 		return colors.black
@@ -125,7 +125,7 @@ server.handleRaw("connect", function(msg)
 	parallel.waitForAny(
 		function() shell.run("/rom/programs/shell") end,
 		conn.start)
-	server.stop()
+	conn.stop()
 	term.redirect(term.native())
 	print("Connection from " .. msg.sender .. " closed.")
 end)
