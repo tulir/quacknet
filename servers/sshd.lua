@@ -105,6 +105,7 @@ function createWirelessTerm(receiver)
 		end
 		return colors.black
 	end
+	return term
 end
 
 local server = quackserver.create("QuackSSHd", "0.1")
