@@ -107,6 +107,7 @@ conn.handleEncrypted("exit", function(data)
 end)
 
 conn.welcome = false
+conn.printOutput = false
 
 clear()
 

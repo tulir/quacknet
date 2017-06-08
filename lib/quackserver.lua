@@ -1,7 +1,9 @@
 local function validate(msg)
 	if not msg.data or type(msg.data) ~= "table" or type(msg.data.command) ~= "string" then
 		term.setTextColor(colors.orange)
-		print("Invalid request from " .. msg.sender)
+		if server.printOutput then
+			print("Invalid request from " .. msg.sender)
+		end
 		return false
 	end
 	if not msg.data.service then
@@ -28,7 +30,9 @@ local function loop(server)
 			command(msg)
 		else
 			term.setTextColor(colors.orange)
-			print("Unknown command " .. msg.data.command .. " from " .. sender)
+			if server.printOutput then
+				print("Unknown command " .. msg.data.command .. " from " .. sender)
+			end
 			msg.reply({
 				success = false,
 				error = "Unknown command \"" .. msg.data.command .. "\"!"
@@ -58,6 +62,7 @@ function create(name, version)
 		commands = {},
 		ids = {},
 		stopped = false,
+		printOutput = false,
 		welcome = false
 	}
 	server.stop = function()
