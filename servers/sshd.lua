@@ -133,6 +133,7 @@ server.handleRaw("connect", function(msg)
 	print("Received connection from " .. msg.sender)
 	local wTerm = createWirelessTerm(msg.sender)
 	local conn = wTerm.createListener()
+	term.clear()
 	term.redirect(wTerm)
 	msg.reply({success = true}, true)
 
