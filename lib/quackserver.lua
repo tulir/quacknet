@@ -42,6 +42,9 @@ local function start(server)
 	print(server.name .. " " .. server.version .. " started")
 
 	while true do
+		if server.stopped then
+			return
+		end
 		loop(server)
 	end
 end
@@ -52,7 +55,11 @@ function create(name, version)
 		version = version,
 		commands = {},
 		ids = {},
+		stopped = false,
 	}
+	server.stop = function()
+		server.stopped = true
+	end
 	server.handleRaw = function(name, func)
 		server.commands[name:lower()] = func
 	end
