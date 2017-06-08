@@ -9,6 +9,7 @@ os.loadAPI("/lib/time")
 os.loadAPI("/lib/quackkeys")
 os.loadAPI("/lib/quackdns")
 os.loadAPI("/lib/quackserver")
+os.loadAPI("/lib/quackgps")
 
 REQUEST_REPLY_TIMEOUT = 5
 DEBUG = false
