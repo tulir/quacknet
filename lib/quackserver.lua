@@ -2,10 +2,6 @@ local function validate(msg)
 	if not msg.data or type(msg.data) ~= "table" or not msg.data.command then
 		term.setTextColor(colors.orange)
 		print("Invalid request from " .. msg.sender)
-		msg.reply({
-			success = false,
-			error = "Invalid data format"
-		})
 		return false
 	end
 	if not msg.data.server then
