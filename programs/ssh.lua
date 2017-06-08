@@ -113,25 +113,32 @@ conn.printOutput = false
 
 clear()
 
+local passthroughEvents = {
+	"char",
+	"key",
+	"key_up",
+	"mouse_click",
+	"mouse_drag",
+	"mouse_scroll",
+	"mouse_up",
+	"paste",
+	"terminate"
+}
+
 parallel.waitForAny(
 	function()
 		while true do
-			local data = table.pack(os.pullEventRaw({
-				"char",
-				"key",
-				"key_up",
-				"mouse_click",
-				"mouse_drag",
-				"mouse_scroll",
-				"mouse_up",
-				"paste",
-				"terminate"
-			}))
-			quacknet.request(host, {
-				command = "raw-event",
-				service = "sshd-connection",
-				params = data
-			}, true)
+			local data = table.pack(os.pullEventRaw())
+			for _, evt in ipairs(passthroughEvents) do
+				if evt == data[1] then
+					quacknet.request(host, {
+						command = "raw-event",
+						service = "sshd-connection",
+						params = data
+					}, true)
+					break
+				end
+			end
 		end
 	end,
 	conn.start)
