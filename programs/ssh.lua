@@ -102,4 +102,19 @@ conn.handleEncrypted("getBackgroundColor", function(data)
 	}
 end)
 
-conn.start()
+conn.handleEncrypted("exit", function(data)
+	conn.stop()
+end)
+
+parallel.waitForAny(
+	function()
+		while true do
+			local data = table.pack(os.pullEventRaw())
+			quacknet.request(host, {
+				command = "raw-event",
+				service = "sshd-connection",
+				params = data
+			})
+		end
+	end
+	conn.start)
