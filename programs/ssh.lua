@@ -130,13 +130,15 @@ parallel.waitForAny(
 	function()
 		while true do
 			local data = table.pack(os.pullEventRaw())
-			if table.contains(passthroughEvents, data[1]) then
-				quacknet.request(host, {
-					command = "raw-event",
-					service = "sshd-connection",
-					params = data
-				}, true)
-			end
+			coroutine.create(function()
+				if table.contains(passthroughEvents, data[1]) then
+					quacknet.request(host, {
+						command = "raw-event",
+						service = "sshd-connection",
+						params = data
+					}, true)
+				end
+			end).start()
 		end
 	end,
 	conn.start)
