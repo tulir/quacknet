@@ -129,15 +129,12 @@ parallel.waitForAny(
 	function()
 		while true do
 			local data = table.pack(os.pullEventRaw())
-			for _, evt in ipairs(passthroughEvents) do
-				if evt == data[1] then
-					quacknet.request(host, {
-						command = "raw-event",
-						service = "sshd-connection",
-						params = data
-					}, true)
-					break
-				end
+			if table.contains(passthroughEvents, data[1]) then
+				quacknet.request(host, {
+					command = "raw-event",
+					service = "sshd-connection",
+					params = data
+				}, true)
 			end
 		end
 	end,
