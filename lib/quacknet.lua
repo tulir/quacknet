@@ -45,11 +45,12 @@ function request(target, data, encrypt)
 		data = textutils.serialize(data)
 	end
 	if type(target) ~= "number" then
+		origTarget = target
 		target = quackdns.resolve(target)
 		if target == nil then
 			return {
 				success = false,
-				error = "Could not resolve hostname " .. target .. "."
+				error = "Could not resolve hostname " .. origTarget .. "."
 			}
 		end
 	end
