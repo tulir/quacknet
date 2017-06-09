@@ -2,6 +2,7 @@ args = { ... }
 if #args < 2 then
 	term.setTextColor(colors.red)
 	print("Usage: quackdns <register/unregister> <domain> [id]")
+	return
 end
 command = table.remove(args, 1):lower()
 if command == "register" and #args > 2 then
