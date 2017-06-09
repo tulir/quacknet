@@ -3,7 +3,7 @@ local quackgpsd = quackserver.create("QuackGPSd", "0.1")
 quackgpsd.registerServiceID("gps")
 quackgpsd.registerDefaultServiceID()
 
-quackgpsd.handleEncrypted("track", function(msg, sender)
+quackgpsd.handleEncrypted("track", function(data, sender)
 	term.setTextColor(colors.cyan)
 	print("Request to track " .. data.player .. " from " .. sender)
 	local x, y, z = quackgps.track(data.player)
