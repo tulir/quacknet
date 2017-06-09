@@ -161,7 +161,7 @@ function reverse(id, skipcache)
 		end
 	end
 	local serverResult = reverseServer(id)
-	if #serverResult > 0 then
+	if serverResult ~= nil and #serverResult > 0 then
 		return serverResult, "SERVER"
 	end
 	return nil, nil
