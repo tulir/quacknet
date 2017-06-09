@@ -26,6 +26,11 @@ end
 function printList(data)
 	local darkBlue = false
 	print(string.format("%-16s @ %-7s %-5s %-7s", "Player", "x", "y", "z"))
+	if data.players == nil then
+		term.setTextColor(colors.red)
+		print("Invalid data!")
+		return
+	end
 	for name, location in pairs(data.players) do
 		if darkBlue then
 			term.setTextColor(colors.blue)
@@ -43,6 +48,9 @@ function printRadar(data)
 	local width, height = term.getSize()
 	width = width - offsetX
 	height = height - offsetY
+	if data.players == nil then
+		return
+	end
 
 	paintutils.drawFilledBox(
 		width / 2 - 1 + offsetX,
