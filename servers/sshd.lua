@@ -143,6 +143,7 @@ server.handleRaw("connect", function(msg)
 	term.clear()
 	term.setCursorPos(1, 1)
 	term.redirect(wTerm)
+	term.setTextColor(colors.white)
 	msg.reply({success = true}, true)
 
 	parallel.waitForAny(

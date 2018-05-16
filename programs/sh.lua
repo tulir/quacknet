@@ -10,7 +10,7 @@ while true do
 		term.clear()
 		term.setCursorPos(1,1)
 	elseif input == "exit" then
-		os.exit()
+		return
 	elseif input == "shutdown" then
 		os.shutdown()
 	elseif input == "reboot" then

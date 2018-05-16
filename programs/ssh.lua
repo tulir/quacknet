@@ -135,7 +135,7 @@ local passthroughEvents = {
 	"paste",
 	"terminate"
 }
-
+term.setTextColor(colors.white)
 parallel.waitForAny(
 	function()
 		while true do
