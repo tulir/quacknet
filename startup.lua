@@ -3,7 +3,8 @@ if fs.exists("/.modem") then
 	local file = fs.open("/.modem", "r")
 	modem = file.readLine()
 	file.close()
-	if peripheral.getType(modem) ~= "modem" or not peripheral.call(modem, "isWireless") then
+	if (peripheral.getType(modem) ~= "modem" or not peripheral.call(modem, "isWireless"))
+	   and (peripheral.getType(modem) ~= "peripheralContainer" or not table.contains(peripheral.call(modem, "getContainedPeripherals"), "modem")) then
 		term.setTextColor(colors.red)
 		print("[Quacknet] Side set in /.modem does not contain a wireless modem! Removing file...")
 		os.sleep(2)
@@ -14,7 +15,12 @@ end
 
 if not modem then
 	for _, side in ipairs(peripheral.getNames()) do
-		if peripheral.getType(side) == "modem" and not modem and peripheral.call(side, "isWireless") then
+		if (peripheral.getType(side) == "peripheralContainer"
+		    and table.contains(peripheral.call(side, "getContainedPeripherals"), "modem"))
+		  or
+		   (peripheral.getType(side) == "modem"
+		    and peripheral.call(side, "isWireless")) then
+		    
 			modem = side
 			local file = fs.open("/.modem", "w")
 			file.write(modem)

@@ -1,15 +1,16 @@
-os.loadAPI("/lib/sha1")
-os.loadAPI("/lib/base64")
-os.loadAPI("/lib/aes")
-os.loadAPI("/lib/strings")
-os.loadAPI("/lib/tables")
-os.loadAPI("/lib/maths")
-os.loadAPI("/lib/random")
-os.loadAPI("/lib/time")
-os.loadAPI("/lib/quackkeys")
-os.loadAPI("/lib/quackdns")
-os.loadAPI("/lib/quackserver")
-os.loadAPI("/lib/quackgps")
+os.loadAPI("/lib/sha1.lua")
+os.loadAPI("/lib/base64.lua")
+os.loadAPI("/lib/aes.lua")
+os.loadAPI("/lib/strings.lua")
+os.loadAPI("/lib/tables.lua")
+os.loadAPI("/lib/maths.lua")
+os.loadAPI("/lib/random.lua")
+os.loadAPI("/lib/time.lua")
+os.loadAPI("/lib/rednet-container.lua")
+os.loadAPI("/lib/quackkeys.lua")
+os.loadAPI("/lib/quackdns.lua")
+os.loadAPI("/lib/quackserver.lua")
+os.loadAPI("/lib/quackgps.lua")
 
 local REQUEST_REPLY_TIMEOUT = 5
 local DEBUG = false
@@ -39,7 +40,7 @@ local function debug(message)
 end
 
 function version()
-	return "Quacknet 1.1"
+	return "Quacknet 1.2"
 end
 
 local function checksum(message, secret, timestamp)

@@ -1,6 +1,6 @@
 local function install(name, toFile)
 	if not toFile then
-		toFile = name
+		toFile = name .. ".lua"
 	end
 	local response = http.get("https://raw.githubusercontent.com/tulir/quacknet/master/" .. name .. ".lua")
 	local file = fs.open(toFile, "w")
@@ -26,6 +26,7 @@ term.setTextColor(colors.yellow)
 install("lib/sha1")
 install("lib/aes")
 install("lib/base64")
+install("lib/rednet-container")
 install("lib/quacknet")
 install("lib/quackkeys")
 install("lib/quackgps")
@@ -54,7 +55,7 @@ install("programs/activate-autorun")
 install("programs/encrypt")
 install("programs/decrypt")
 install("programs/quacktrack-ui")
-install("installer", "programs/update-quacknet")
+install("installer", "programs/update-quacknet.lua")
 
 install("startup")
 
