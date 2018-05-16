@@ -148,6 +148,7 @@ server.handleRaw("connect", function(msg)
 	parallel.waitForAny(
 		function() shell.run("/rom/programs/shell") end,
 		conn.start)
+	term.send("stop")
 	conn.stop()
 	term.redirect(term.native())
 	print("Connection from " .. msg.sender .. " closed.")

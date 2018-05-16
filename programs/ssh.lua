@@ -152,3 +152,6 @@ parallel.waitForAny(
 		end
 	end,
 	conn.start)
+conn.stop()
+term.clear()
+print("Connection closed.")
