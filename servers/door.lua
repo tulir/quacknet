@@ -36,7 +36,6 @@ function redstoneListener()
 	end
 end
 
-print("Door server 1.0 running")
 term.setTextColor(colors.white)
 print("Input:", inputSide)
 print("Output:", outputSide)
