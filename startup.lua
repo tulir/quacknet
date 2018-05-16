@@ -1,3 +1,6 @@
+os.loadAPI("/lib/strings.lua")
+os.loadAPI("/lib/tables.lua")
+
 local modem = false
 if fs.exists("/.modem") then
 	local file = fs.open("/.modem", "r")
@@ -60,7 +63,7 @@ term.clear()
 term.setCursorPos(1, 1)
 term.setTextColor(colors.orange)
 print("Loading libquacknet...")
-os.loadAPI("/lib/quacknet")
+os.loadAPI("/lib/quacknet.lua")
 
 autorun("postinit")
 

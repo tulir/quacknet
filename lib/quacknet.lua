@@ -1,8 +1,6 @@
 os.loadAPI("/lib/sha1.lua")
 os.loadAPI("/lib/base64.lua")
 os.loadAPI("/lib/aes.lua")
-os.loadAPI("/lib/strings.lua")
-os.loadAPI("/lib/tables.lua")
 os.loadAPI("/lib/maths.lua")
 os.loadAPI("/lib/random.lua")
 os.loadAPI("/lib/time.lua")
