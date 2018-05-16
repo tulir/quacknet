@@ -24,8 +24,21 @@ function createWirelessTerm(receiver)
 			data.service = "ssh-client"
 			data.command = command
 			return quacknet.request(receiver, data, true)
-		end
+		end,
+		_isColor = false
+		_width = 26
+		_height = 19
 	}
+	local isColor = term.request("isColor")
+	if isColor.data then
+		term._isColor = isColor.data.value
+	end
+	local size = term.request("getSize")
+	if type(size.data) == "table" and type(size.data.width) == "number" and type(size.data.height) == "number" then
+		term._width = size.data.width
+		term._height = size.data.height
+	end
+	
 	term.createListener = function()
 		local conn = quackserver.create("QuackSSHd client connection", "0.1")
 		conn.registerServiceID("sshd-connection")
@@ -80,19 +93,11 @@ function createWirelessTerm(receiver)
 		term.send("setCursorBlink", blink)
 	end
 	term.isColor = function()
-		local reply = term.request("isColor")
-		if reply.data then
-			return reply.data.value
-		end
-		return false
+		return term._isColor
 	end
 	term.isColour = term.isColor
 	term.getSize = function()
-		local reply = term.request("getSize")
-		if type(reply.data) == "table" and type(reply.data.width) == "number" and type(reply.data.height) == "number" then
-			return reply.data.width, reply.data.height
-		end
-		return 26, 19
+		return term._width, term._height
 	end
 	term.scroll = function(lines)
 		nativeTerm.scroll(lines)
@@ -104,11 +109,12 @@ function createWirelessTerm(receiver)
 	end
 	term.setTextColour = term.setTextColor
 	term.getTextColor = function()
-		local reply = term.request("getTextColor")
-		if type(reply.data) == "number" then
-			return reply.data.value
-		end
-		return colors.white
+--		local reply = term.request("getTextColor")
+--		if type(reply.data) == "number" then
+--			return reply.data.value
+--		end
+--		return colors.white
+		return nativeTerm.getTextColor()
 	end
 	term.getTextColour = term.getTextColor
 	term.setBackgroundColor = function(color)
@@ -117,11 +123,12 @@ function createWirelessTerm(receiver)
 	end
 	term.setBackgroundColour = term.setBackgroundColor
 	term.getBackgroundColor = function()
-		local reply = term.request("getBackgroundColor")
-		if type(reply.data) == "number" then
-			return reply.data.value
-		end
-		return colors.black
+--		local reply = term.request("getBackgroundColor")
+--		if type(reply.data) == "number" then
+--			return reply.data.value
+--		end
+--		return colors.black
+		return nativeTerm.getBackgroundColor()
 	end
 	term.getBackgroundColour = term.getBackgroundColor
 	return term
