@@ -105,10 +105,10 @@ function rednet.send( nRecipient, message, sProtocol )
         -- Send on all open modems, to the target and to repeaters
         local sent = false
         for n,sModem in ipairs( peripheral.getNames() ) do
-            if isOpen( sModem ) then
+            if rednet.isOpen( sModem ) then
                 modem = rednet.wrap( sModem )
                 modem.transmit( nRecipient, nReplyChannel, tMessage )
-                modem.transmit( CHANNEL_REPEAT, nReplyChannel, tMessage )
+                modem.transmit( rednet.CHANNEL_REPEAT, nReplyChannel, tMessage )
                 sent = true
             end
         end
@@ -220,7 +220,7 @@ function rednet.run()
         if sEvent == "modem_message" then
             -- Got a modem message, process it and add it to the rednet event queue
             local sModem, nChannel, nReplyChannel, tMessage = p1, p2, p3, p4
-            if rednet.isOpen( sModem ) and ( nChannel == os.getComputerID() or nChannel == CHANNEL_BROADCAST ) then
+            if rednet.isOpen( sModem ) and ( nChannel == os.getComputerID() or nChannel == rednet.CHANNEL_BROADCAST ) then
                 if type( tMessage ) == "table" and tMessage.nMessageID then
                     if not tReceivedMessages[ tMessage.nMessageID ] then
                         tReceivedMessages[ tMessage.nMessageID ] = true
