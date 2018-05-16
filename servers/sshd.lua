@@ -146,7 +146,7 @@ server.handleRaw("connect", function(msg)
 	msg.reply({success = true}, true)
 
 	parallel.waitForAny(
-		function() shell.run("/rom/programs/shell") end,
+		function() shell.run("/programs/sh.lua") end,
 		conn.start)
 	wTerm.send("stop")
 	conn.stop()
