@@ -11,6 +11,9 @@ end
 local prevState = rs.getInput(inputSide)
 
 print("Door server 1.0 running")
+term.setTextColor(colors.white)
+print("Input:", inputSide)
+print("Output:", outputSide)
 
 while true do
 	local event, sender, message = os.pullEvent()
