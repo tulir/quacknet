@@ -56,6 +56,7 @@ install("programs/activate-autorun")
 install("programs/encrypt")
 install("programs/decrypt")
 install("programs/quacktrack-ui")
+install("programs/door")
 install("installer", "programs/update-quacknet.lua")
 
 install("startup")
