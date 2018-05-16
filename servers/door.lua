@@ -14,14 +14,14 @@ local doorserver = quackserver.create("Door Server", "1.0")
 doorserver.registerServiceID("door")
 doorserver.registerDefaultServiceID()
 
-doorserver.handle("open", function(event)
+doorserver.handle("open", function()
 	rs.setOutput(outputSide, true)
-	event.reply("Opening door...")
+	return "Opening door..."
 end)
 
-doorserver.handle("close", function(event)
+doorserver.handle("close", function()
 	rs.setOutput(outputSide, false)
-	event.reply("Closing door...")
+	return "Closing door..."
 end)
 
 function redstoneListener()

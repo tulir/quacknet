@@ -25,9 +25,9 @@ function createWirelessTerm(receiver)
 			data.command = command
 			return quacknet.request(receiver, data, true)
 		end,
-		_isColor = false
-		_width = 26
-		_height = 19
+		_isColor = false,
+		_width = 26,
+		_height = 19,
 	}
 	local isColor = term.request("isColor")
 	if isColor.data then
