@@ -3,6 +3,7 @@ local args = { ... }
 if #args < 1 then
 	term.setTextColor(colors.red)
 	print("Usage: decrypt <filename>")
+	return
 end
 
 local filename = args[1]

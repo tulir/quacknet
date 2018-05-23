@@ -3,6 +3,7 @@ if #args < 2 then
 	term.setTextColor(colors.red)
 	print("Not enough arguments!")
 	print("Usage: door <open/close> <location>")
+	return
 end
 
 local resp = quacknet.request(args[2] .. "door", {

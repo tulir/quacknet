@@ -2,6 +2,7 @@ local args = { ... }
 
 if #args < 1 then
 	print("Usage: cat <path>")
+	return
 end
 
 local file = fs.open(args[1], "r")
