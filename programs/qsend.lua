@@ -2,6 +2,7 @@ args = { ... }
 if #args < 2 then
 	term.setTextColor(colors.red)
 	print("Usage: qsend <target> <message>")
+	return
 end
 target = table.remove(args, 1)
 local reply = quacknet.request(target, table.concat(args, " "))

@@ -2,6 +2,7 @@ args = { ... }
 if #args < 1 then
 	term.setTextColor(colors.red)
 	print("Usage: nslookup <hostname/id> [--nocache]")
+	return
 end
 
 local nocache = args[2] == "--nocache"
