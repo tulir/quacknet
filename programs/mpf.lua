@@ -22,7 +22,7 @@ if c == "extend" or c == "open" or c == "e" or c == "o" then
 	end
 	resp = parallel.waitForAll(open_1, open_2)
 	print(resp)
-else if c == "retract" or c == "close" or c == "r" or c == "c" then
+elseif c == "retract" or c == "close" or c == "r" or c == "c" then
 	function close_1()
 		return quacknet.request("mpf-1", {
 			service = "mpf",
